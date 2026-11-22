@@ -439,5 +439,23 @@
     "url": "",
     "lat": 47.4804918,
     "lng": 19.1252506
+  },
+  {
+    "id": "mws99le41dth4u",
+    "createdAt": "2026-11-22T19:54:21.964Z",
+    "name": "kawamura ramen",
+    "status": "wishlist",
+    "type": "etterem",
+    "address": "dohány utca 54",
+    "district": "VII",
+    "cuisine": "japán",
+    "price": "",
+    "rating": 0,
+    "scale": 10,
+    "wouldReturn": false,
+    "notes": "",
+    "url": "",
+    "lat": 47.4975879,
+    "lng": 19.0682541
   }
 ]
