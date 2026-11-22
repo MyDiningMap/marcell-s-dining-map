@@ -767,5 +767,23 @@
     "url": "https://maps.app.goo.gl/eGoZZfetzy9krsLD7",
     "lat": 47.4877953,
     "lng": 19.0635309
+  },
+  {
+    "id": "mws9y6xg7zg7gr",
+    "createdAt": "2026-11-22T20:13:29.620Z",
+    "name": "Relative Pozsonyi",
+    "status": "wishlist",
+    "type": "bar",
+    "address": "pozsonyi 16",
+    "district": "XIII",
+    "cuisine": "",
+    "price": "",
+    "rating": 0,
+    "scale": 10,
+    "wouldReturn": false,
+    "notes": "",
+    "url": "https://maps.app.goo.gl/cKef4SEKyF7Shx7T7",
+    "lat": 47.5157937,
+    "lng": 19.049639
   }
 ]
