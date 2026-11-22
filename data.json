@@ -639,5 +639,23 @@
     "url": "https://maps.app.goo.gl/Q38noYqHPmZ1XNjm8",
     "lat": 47.4831968,
     "lng": 19.0350218
+  },
+  {
+    "id": "mws9nqpruumgwg",
+    "createdAt": "2026-11-22T20:05:22.047Z",
+    "name": "Cheesecake by Cookie Beacon",
+    "status": "wishlist",
+    "type": "cukraszda",
+    "address": "arany jános 27",
+    "district": "V",
+    "cuisine": "",
+    "price": "",
+    "rating": 0,
+    "scale": 10,
+    "wouldReturn": false,
+    "notes": "",
+    "url": "https://maps.app.goo.gl/df6qAwA3KAyAFE5D9",
+    "lat": 47.5022648,
+    "lng": 19.0530604
   }
 ]
