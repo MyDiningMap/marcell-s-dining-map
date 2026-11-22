@@ -278,11 +278,11 @@
     "updatedAt": "2026-11-22T19:03:11.136Z"
   },
   {
+    "status": "visited",
+    "type": "etterem",
     "id": "mws7ubouaqaldw",
     "createdAt": "2026-11-22T19:14:29.934Z",
     "name": "Annapurna Nepáli Étterem",
-    "status": "visited",
-    "type": "etterem",
     "address": "ráday utca 29",
     "district": "IX",
     "cuisine": "",
@@ -296,11 +296,11 @@
     "lng": 19.0641934
   },
   {
+    "status": "visited",
+    "type": "etterem",
     "id": "mws7w5nsht1vv3",
     "createdAt": "2026-11-22T19:15:55.432Z",
     "name": "Leila's Lebanese",
-    "status": "visited",
-    "type": "etterem",
     "address": "váci utca 42",
     "district": "V",
     "cuisine": "közel-keleti",
@@ -314,11 +314,11 @@
     "lng": 19.0545574
   },
   {
+    "status": "visited",
+    "type": "etterem",
     "id": "mws7z5ur6j2bxg",
     "createdAt": "2026-11-22T19:18:15.651Z",
     "name": "Furia",
-    "status": "visited",
-    "type": "etterem",
     "address": "irányi utca 6",
     "district": "V",
     "cuisine": "közel-keleti",
@@ -332,11 +332,11 @@
     "lng": 19.0528525
   },
   {
+    "status": "visited",
+    "type": "etterem",
     "id": "mws8u36vf94c3t",
     "createdAt": "2026-11-22T19:42:18.535Z",
     "name": "Sajtburesz by ZING",
-    "status": "visited",
-    "type": "etterem",
     "address": "tátra utca 13",
     "district": "XIII",
     "cuisine": "burger",
@@ -350,11 +350,11 @@
     "lng": 19.0514856
   },
   {
+    "status": "visited",
+    "type": "etterem",
     "id": "mws8vcoe9a7sjr",
     "createdAt": "2026-11-22T19:43:17.486Z",
     "name": "Indian palate",
-    "status": "visited",
-    "type": "etterem",
     "address": "veres pálné utca 5",
     "district": "V",
     "cuisine": "indiai",
@@ -368,11 +368,11 @@
     "lng": 19.0558616
   },
   {
+    "status": "visited",
+    "type": "etterem",
     "id": "mws8x05y1yl057",
     "createdAt": "2026-11-22T19:44:34.582Z",
     "name": "Indigo",
-    "status": "visited",
-    "type": "etterem",
     "address": "fény utca 16",
     "district": "II",
     "cuisine": "indiai",
@@ -386,14 +386,14 @@
     "lng": 19.0255691
   },
   {
+    "status": "visited",
+    "type": "etterem",
     "id": "mws8zbs81u6t7m",
     "createdAt": "2026-11-22T19:46:22.952Z",
     "name": "Panjab Tandori Étterem",
-    "status": "visited",
-    "type": "etterem",
     "address": "pannonia utca 3",
     "district": "XIII",
-    "cuisine": "",
+    "cuisine": "indiai",
     "price": "",
     "rating": 9,
     "scale": 10,
@@ -401,14 +401,15 @@
     "notes": "A hely kicsit \"autentikusan\" néz ki, de a kaja az top és nem drága.",
     "url": "https://maps.app.goo.gl/jQtUNM32JYJY2x6H9",
     "lat": 47.5130612,
-    "lng": 19.0514921
+    "lng": 19.0514921,
+    "updatedAt": "2026-11-22T20:55:59.229Z"
   },
   {
+    "status": "visited",
+    "type": "etterem",
     "id": "mws925up5minh8",
     "createdAt": "2026-11-22T19:48:35.233Z",
     "name": "Forni Di Napoli",
-    "status": "visited",
-    "type": "etterem",
     "address": "szent istván körút 7",
     "district": "V",
     "cuisine": "",
@@ -423,11 +424,11 @@
     "updatedAt": "2026-11-22T19:48:38.466Z"
   },
   {
+    "status": "wishlist",
+    "type": "etterem",
     "id": "mws98hys2xuga6",
     "createdAt": "2026-11-22T19:53:30.868Z",
     "name": "In town HotPot",
-    "status": "wishlist",
-    "type": "etterem",
     "address": "jegenye utca 26",
     "district": "X",
     "cuisine": "kínai",
@@ -442,11 +443,11 @@
     "updatedAt": "2026-11-22T19:54:58.869Z"
   },
   {
+    "status": "wishlist",
+    "type": "etterem",
     "id": "mws99le41dth4u",
     "createdAt": "2026-11-22T19:54:21.964Z",
     "name": "Kawamura ramen",
-    "status": "wishlist",
-    "type": "etterem",
     "address": "dohány utca 54",
     "district": "VII",
     "cuisine": "japán",
@@ -461,11 +462,11 @@
     "updatedAt": "2026-11-22T19:54:44.382Z"
   },
   {
+    "status": "wishlist",
+    "type": "etterem",
     "id": "mws9ck9dkzjqqm",
     "createdAt": "2026-11-22T19:56:40.465Z",
     "name": "De Finci",
-    "status": "wishlist",
-    "type": "etterem",
     "address": "móricz zsigmond körtér 8",
     "district": "XI",
     "cuisine": "olasz",
@@ -479,11 +480,11 @@
     "lng": 19.0461297
   },
   {
+    "status": "wishlist",
+    "type": "etterem",
     "id": "mws9dlwyv5srif",
     "createdAt": "2026-11-22T19:57:29.266Z",
     "name": "Pastamore",
-    "status": "wishlist",
-    "type": "etterem",
     "address": "dob utca 18",
     "district": "VII",
     "cuisine": "",
@@ -497,11 +498,11 @@
     "lng": 19.0606484
   },
   {
+    "status": "wishlist",
+    "type": "etterem",
     "id": "mws9ednj4tkiba",
     "createdAt": "2026-11-22T19:58:05.215Z",
     "name": "Rutin",
-    "status": "wishlist",
-    "type": "etterem",
     "address": "Budaörs",
     "district": "",
     "cuisine": "",
@@ -515,11 +516,11 @@
     "lng": null
   },
   {
+    "status": "wishlist",
+    "type": "etterem",
     "id": "mws9g0chjb1wl8",
     "createdAt": "2026-11-22T19:59:21.281Z",
     "name": "Red Lantern HotPot",
-    "status": "wishlist",
-    "type": "etterem",
     "address": "liszt ferenc tér 5",
     "district": "VI",
     "cuisine": "",
@@ -533,11 +534,11 @@
     "lng": 19.0635402
   },
   {
+    "status": "wishlist",
+    "type": "etterem",
     "id": "mws9gx6v1s2jfj",
     "createdAt": "2026-11-22T20:00:03.847Z",
     "name": "Amatore",
-    "status": "wishlist",
-    "type": "etterem",
     "address": "rózsa utca 71",
     "district": "VI",
     "cuisine": "",
@@ -551,11 +552,11 @@
     "lng": 19.0672028
   },
   {
+    "status": "wishlist",
+    "type": "etterem",
     "id": "mws9ig9a22e1sz",
     "createdAt": "2026-11-22T20:01:15.214Z",
     "name": "Art of Sushi",
-    "status": "wishlist",
-    "type": "etterem",
     "address": "liszt ferenc tér 5",
     "district": "VI",
     "cuisine": "japán",
@@ -569,11 +570,11 @@
     "lng": 19.0635402
   },
   {
+    "status": "wishlist",
+    "type": "pekseg",
     "id": "mws9jjze4lc36n",
     "createdAt": "2026-11-22T20:02:06.698Z",
     "name": "Laget",
-    "status": "wishlist",
-    "type": "pekseg",
     "address": "bajcsy 49",
     "district": "VI",
     "cuisine": "",
@@ -587,11 +588,11 @@
     "lng": 19.0552673
   },
   {
+    "status": "wishlist",
+    "type": "etterem",
     "id": "mws9kz8rh2v5vl",
     "createdAt": "2026-11-22T20:03:13.131Z",
     "name": "Komachi Bistro",
-    "status": "wishlist",
-    "type": "etterem",
     "address": "kertész utca 33",
     "district": "VII",
     "cuisine": "japán",
@@ -605,11 +606,11 @@
     "lng": 19.0659886
   },
   {
+    "status": "wishlist",
+    "type": "etterem",
     "id": "mws9lwf8snunm0",
     "createdAt": "2026-11-22T20:03:56.132Z",
     "name": "Dehra Duna Dumplings",
-    "status": "wishlist",
-    "type": "etterem",
     "address": "wesselényi 56",
     "district": "VII",
     "cuisine": "",
@@ -623,11 +624,11 @@
     "lng": 19.0706648
   },
   {
+    "status": "wishlist",
+    "type": "pekseg",
     "id": "mws9mmvzmiwrnk",
     "createdAt": "2026-11-22T20:04:30.431Z",
     "name": "Chez Matild",
-    "status": "wishlist",
-    "type": "pekseg",
     "address": "ménesi út 82",
     "district": "XI",
     "cuisine": "",
@@ -641,11 +642,11 @@
     "lng": 19.0350218
   },
   {
+    "status": "wishlist",
+    "type": "cukraszda",
     "id": "mws9nqpruumgwg",
     "createdAt": "2026-11-22T20:05:22.047Z",
     "name": "Cheesecake by Cookie Beacon",
-    "status": "wishlist",
-    "type": "cukraszda",
     "address": "arany jános 27",
     "district": "V",
     "cuisine": "",
@@ -659,11 +660,11 @@
     "lng": 19.0530604
   },
   {
+    "status": "wishlist",
+    "type": "etterem",
     "id": "mws9ox4d3hznjx",
     "createdAt": "2026-11-22T20:06:17.005Z",
     "name": "Ms. Asia Bowls and Rolls",
-    "status": "wishlist",
-    "type": "etterem",
     "address": "déri miksa 3",
     "district": "VIII",
     "cuisine": "vietnámi",
@@ -678,11 +679,11 @@
     "updatedAt": "2026-11-22T20:06:37.555Z"
   },
   {
+    "status": "wishlist",
+    "type": "etterem",
     "id": "mws9rh9z20hu8p",
     "createdAt": "2026-11-22T20:08:16.439Z",
     "name": "KKODARI",
-    "status": "wishlist",
-    "type": "etterem",
     "address": "krúdy 4",
     "district": "VIII",
     "cuisine": "koreai",
@@ -696,11 +697,11 @@
     "lng": 19.0671122
   },
   {
+    "status": "wishlist",
+    "type": "pekseg",
     "id": "mws9sepah8425p",
     "createdAt": "2026-11-22T20:08:59.758Z",
     "name": "ORMA",
-    "status": "wishlist",
-    "type": "pekseg",
     "address": "horváth mihály tér 13",
     "district": "VIII",
     "cuisine": "",
@@ -715,11 +716,11 @@
     "updatedAt": "2026-11-22T20:09:05.604Z"
   },
   {
+    "status": "wishlist",
+    "type": "bar",
     "id": "mws9u0p2281jaj",
     "createdAt": "2026-11-22T20:10:14.918Z",
     "name": "MITZI",
-    "status": "wishlist",
-    "type": "bar",
     "address": "bartók béla 1",
     "district": "XI",
     "cuisine": "",
@@ -733,11 +734,11 @@
     "lng": 19.0526391
   },
   {
+    "status": "wishlist",
+    "type": "etterem",
     "id": "mws9v76rr4i0xn",
     "createdAt": "2026-11-22T20:11:09.987Z",
     "name": "ZAZO Pizzeria",
-    "status": "wishlist",
-    "type": "etterem",
     "address": "batthyany 15",
     "district": "I",
     "cuisine": "",
@@ -751,11 +752,11 @@
     "lng": 19.0354168
   },
   {
+    "status": "wishlist",
+    "type": "etterem",
     "id": "mws9wocn8vl08v",
     "createdAt": "2026-11-22T20:12:18.888Z",
     "name": "Bistro 38",
-    "status": "wishlist",
-    "type": "etterem",
     "address": "ráday 14",
     "district": "IX",
     "cuisine": "vietnámi",
@@ -769,11 +770,11 @@
     "lng": 19.0635309
   },
   {
+    "status": "wishlist",
+    "type": "bar",
     "id": "mws9y6xg7zg7gr",
     "createdAt": "2026-11-22T20:13:29.620Z",
     "name": "Relative Pozsonyi",
-    "status": "wishlist",
-    "type": "bar",
     "address": "pozsonyi 16",
     "district": "XIII",
     "cuisine": "",
@@ -787,11 +788,11 @@
     "lng": 19.049639
   },
   {
+    "status": "wishlist",
+    "type": "etterem",
     "id": "mwsa0bjsifr767",
     "createdAt": "2026-11-22T20:15:08.920Z",
     "name": "Zen Eatery",
-    "status": "wishlist",
-    "type": "etterem",
     "address": "liszt ferenc tér 10",
     "district": "VI",
     "cuisine": "japán",
@@ -805,11 +806,11 @@
     "lng": 19.0633192
   },
   {
+    "status": "wishlist",
+    "type": "etterem",
     "id": "mwsa17opsyx8ir",
     "createdAt": "2026-11-22T20:15:50.569Z",
     "name": "86 Kitchen",
-    "status": "wishlist",
-    "type": "etterem",
     "address": "podmaniczky 29",
     "district": "VI",
     "cuisine": "vietnámi",
@@ -823,11 +824,11 @@
     "lng": 19.0590661
   },
   {
+    "status": "wishlist",
+    "type": "etterem",
     "id": "mwsa29gwysdx2t",
     "createdAt": "2026-11-22T20:16:39.536Z",
     "name": "Zhu and Co",
-    "status": "wishlist",
-    "type": "etterem",
     "address": "nagymező 66",
     "district": "VI",
     "cuisine": "japán",
