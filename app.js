@@ -5,7 +5,7 @@
   // only someone with a GitHub token that can push to this repo can save.
   const GH = {
     owner: 'Marcell-testing',
-    repo: 'diningmap',
+    repo: 'marcell-dining-map',
     branch: 'claude/keen-euler-7pfh59', // the branch GitHub Pages is published from
     path: 'data.json',
   };
@@ -83,7 +83,7 @@
   async function ghCheckToken(token) {
     const res = await fetch(API, { headers: ghHeaders(token) });
     if (res.status === 401) throw new Error('A token érvénytelen vagy lejárt.');
-    if (res.status === 404) throw new Error('A token nem fér hozzá a diningmap repóhoz.');
+    if (res.status === 404) throw new Error('A token nem fér hozzá a marcell-dining-map repóhoz.');
     if (!res.ok) throw new Error(`GitHub hiba (${res.status}).`);
     const repo = await res.json();
     if (repo.permissions && !repo.permissions.push) throw new Error('A tokennek nincs írási joga a repóhoz.');
@@ -569,7 +569,7 @@
     const blob = new Blob([JSON.stringify(state.items, null, 2)], { type: 'application/json' });
     const a = document.createElement('a');
     a.href = URL.createObjectURL(blob);
-    a.download = `diningmap-${today()}.json`;
+    a.download = `marcell-dining-map-${today()}.json`;
     a.click();
     setTimeout(() => URL.revokeObjectURL(a.href), 1000);
     $('.menu').open = false;
