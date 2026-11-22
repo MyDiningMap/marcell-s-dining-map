@@ -90,5 +90,23 @@
     "url": "https://maps.app.goo.gl/6jUWgQ9zKvSwEFu98",
     "lat": 47.48165919762427,
     "lng": 19.072419181466106
+  },
+  {
+    "id": "mws6c94d204850",
+    "createdAt": "2026-11-22T18:32:27.181Z",
+    "name": "Black Cab Burger",
+    "status": "visited",
+    "type": "etterem",
+    "address": "mester utca 46",
+    "district": "IX",
+    "cuisine": "burger",
+    "price": "",
+    "rating": 10,
+    "scale": 10,
+    "wouldReturn": true,
+    "notes": "Legjobb burger. Elvitel ajánlott.",
+    "url": "https://maps.app.goo.gl/aX4PLC8T5ysk4q6M6",
+    "lat": 47.4786302,
+    "lng": 19.0738788
   }
 ]
