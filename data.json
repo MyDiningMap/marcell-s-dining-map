@@ -204,11 +204,11 @@
     "lng": 19.0611278
   },
   {
+    "status": "visited",
+    "type": "etterem",
     "id": "mws73ldelvwjlp",
     "createdAt": "2026-11-22T18:53:42.770Z",
     "name": "Time Out Market",
-    "status": "visited",
-    "type": "etterem",
     "address": "Blaha lujza tér 1",
     "district": "VIII",
     "cuisine": "",
@@ -222,11 +222,11 @@
     "lng": 19.0691975
   },
   {
+    "status": "visited",
+    "type": "etterem",
     "id": "mws74xw3s89g3s",
     "createdAt": "2026-11-22T18:54:45.651Z",
     "name": "Szaletly",
-    "status": "visited",
-    "type": "etterem",
     "address": "stefánia út 13",
     "district": "XIV",
     "cuisine": "magyar",
@@ -240,11 +240,11 @@
     "lng": 19.1049785
   },
   {
+    "status": "visited",
+    "type": "etterem",
     "id": "mws78knj97ms3s",
     "createdAt": "2026-11-22T18:57:35.119Z",
     "name": "Budapest BarBQ",
-    "status": "visited",
-    "type": "etterem",
     "address": "hercegprímás utca 11",
     "district": "V",
     "cuisine": "burger",
@@ -258,14 +258,14 @@
     "lng": 19.0530528
   },
   {
+    "status": "visited",
+    "type": "etterem",
     "id": "mws7dssddnd3pq",
     "createdAt": "2026-11-22T19:01:38.941Z",
     "name": "Cheeky's Deli",
-    "status": "visited",
-    "type": "etterem",
     "address": "margit körút 13",
     "district": "II",
-    "cuisine": "",
+    "cuisine": "barbeque",
     "price": "",
     "rating": 8,
     "scale": 10,
@@ -273,6 +273,7 @@
     "notes": "Reuben, pastrami és Philly cheesesteak szendók. Fincsa, kicsit drága",
     "url": "https://maps.app.goo.gl/2w7a2ppGtDwn14Qx7",
     "lat": 47.5137427,
-    "lng": 19.0350705
+    "lng": 19.0350705,
+    "updatedAt": "2026-11-22T19:03:11.136Z"
   }
 ]
