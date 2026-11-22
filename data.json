@@ -731,5 +731,23 @@
     "url": "https://maps.app.goo.gl/L3E2DEreThzSTiEk7",
     "lat": 47.4831518,
     "lng": 19.0526391
+  },
+  {
+    "id": "mws9v76rr4i0xn",
+    "createdAt": "2026-11-22T20:11:09.987Z",
+    "name": "ZAZO Pizzeria",
+    "status": "wishlist",
+    "type": "etterem",
+    "address": "batthyany 15",
+    "district": "I",
+    "cuisine": "",
+    "price": "",
+    "rating": 0,
+    "scale": 10,
+    "wouldReturn": false,
+    "notes": "",
+    "url": "https://maps.app.goo.gl/tgyjkzTCUdEuPTh36",
+    "lat": 47.5068547,
+    "lng": 19.0354168
   }
 ]
