@@ -23,8 +23,8 @@
     cukraszda: { label: 'Cukrászda', icon: '🍰' },
     bar: { label: 'Bár', icon: '🍷' },
   };
-  const DEFAULT_CUISINES = ['magyar', 'olasz', 'pizza', 'burger', 'ázsiai', 'japán', 'kínai', 'vietnámi',
-    'thai', 'indiai', 'közel-keleti', 'mexikói', 'francia', 'görög', 'vegán', 'street food', 'reggeliző',
+  const DEFAULT_CUISINES = ['magyar', 'olasz', 'pizza', 'burger', 'japán', 'kínai', 'vietnámi',
+    'thai', 'koreai', 'indiai', 'közel-keleti', 'mexikói', 'francia', 'görög', 'vegán', 'street food', 'reggeliző',
     'kovászos kenyér', 'péksütemény', 'croissant'];
 
   const $ = (sel) => document.querySelector(sel);
