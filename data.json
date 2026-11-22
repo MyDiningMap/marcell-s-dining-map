@@ -603,5 +603,23 @@
     "url": "https://maps.app.goo.gl/XRWwwWzWewQs4L9a7",
     "lat": 47.5014263,
     "lng": 19.0659886
+  },
+  {
+    "id": "mws9lwf8snunm0",
+    "createdAt": "2026-11-22T20:03:56.132Z",
+    "name": "Dehra Duna Dumplings",
+    "status": "wishlist",
+    "type": "etterem",
+    "address": "wesselényi 56",
+    "district": "VII",
+    "cuisine": "",
+    "price": "",
+    "rating": 0,
+    "scale": 10,
+    "wouldReturn": false,
+    "notes": "",
+    "url": "https://maps.app.goo.gl/ges7bc4Pz1BzfbSV7",
+    "lat": 47.5018571,
+    "lng": 19.0706648
   }
 ]
