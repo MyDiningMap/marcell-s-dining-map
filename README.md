@@ -8,7 +8,7 @@ Személyes webapp a kipróbált budapesti éttermek nyilvántartására, térké
 - **Új étterem**: a „+ Új étterem” gombbal vagy a térképre kattintva.
   - A helyet cím alapján is keresheted (OpenStreetMap Nominatim), vagy kijelölheted a térképen.
   - Az irányítószámból automatikusan kitölti a kerületet.
-- Adatok: név, cím, kerület, konyha, 1–5 csillag, árszint, látogatás dátuma, „visszamennék”, jegyzetek, link.
+- Adatok: név, cím, kerület, konyha, 1–10 csillag, árszint, látogatás dátuma, „visszamennék”, jegyzetek, link.
 - **Szűrés és rendezés**: szöveges keresés, konyha, kerület, minimum értékelés, „csak ahová visszamennék”.
 - **Statisztika**: darabszám, átlagos értékelés, hány helyre mennél vissza.
 - **Mentés / betöltés JSON fájlba** (⋯ menü): biztonsági mentéshez, vagy hogy átvidd az adatokat másik eszközre.

@@ -170,3 +170,10 @@ textarea { resize: vertical; }
 }
 body.picking .pick-banner { display: block; }
 body.picking #map { cursor: crosshair; }
+
+/* 10-star scale */
+.item .stars { font-size: 12px; letter-spacing: 0; }
+.stars-input { flex-wrap: wrap; }
+.stars-input button { font-size: 24px; padding: 0 1px; }
+.rating-value { color: var(--text); font-weight: 600; margin-left: 4px; }
+.dialog label.check { flex-direction: row; color: var(--text); font-size: 14px; }

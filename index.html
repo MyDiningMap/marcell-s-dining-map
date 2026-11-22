@@ -44,9 +44,11 @@
         <div class="filter-row">
           <select id="f-rating">
             <option value="0">Bármilyen értékelés</option>
-            <option value="3">★ 3+</option>
-            <option value="4">★ 4+</option>
-            <option value="5">★ 5</option>
+            <option value="6">★ 6+</option>
+            <option value="7">★ 7+</option>
+            <option value="8">★ 8+</option>
+            <option value="9">★ 9+</option>
+            <option value="10">★ 10</option>
           </select>
           <select id="f-sort">
             <option value="date">Legutóbbi látogatás</option>
@@ -95,11 +97,12 @@
         </label>
       </div>
 
+      <label><span>Értékelés <span id="rating-value" class="rating-value"></span></span>
+        <div class="stars-input" id="stars-input" role="radiogroup" aria-label="Értékelés"></div>
+        <input type="hidden" name="rating">
+      </label>
+
       <div class="grid2">
-        <label>Értékelés
-          <div class="stars-input" id="stars-input" role="radiogroup" aria-label="Értékelés"></div>
-          <input type="hidden" name="rating">
-        </label>
         <label>Árszint
           <select name="price">
             <option value="">–</option>
@@ -109,16 +112,14 @@
             <option value="4">Ft Ft Ft Ft (drága)</option>
           </select>
         </label>
-      </div>
-
-      <div class="grid2">
         <label>Látogatás dátuma
           <input name="date" type="date">
         </label>
-        <label class="check top">
-          <input name="wouldReturn" type="checkbox"> Visszamennék
-        </label>
       </div>
+
+      <label class="check">
+        <input name="wouldReturn" type="checkbox"> Visszamennék
+      </label>
 
       <label>Mit ettem / jegyzetek
         <textarea name="notes" rows="3"></textarea>

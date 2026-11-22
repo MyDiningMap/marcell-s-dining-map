@@ -2,6 +2,7 @@
   'use strict';
 
   const STORAGE_KEY = 'diningmap.restaurants.v1';
+  const MAX_RATING = 10;
   const BUDAPEST = [47.4979, 19.0402];
   const DISTRICTS = ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X', 'XI', 'XII',
     'XIII', 'XIV', 'XV', 'XVI', 'XVII', 'XVIII', 'XIX', 'XX', 'XXI', 'XXII', 'XXIII'];
@@ -16,8 +17,14 @@
     try {
       const raw = localStorage.getItem(STORAGE_KEY);
       const data = raw ? JSON.parse(raw) : [];
-      return Array.isArray(data) ? data : [];
+      return Array.isArray(data) ? data.map(toTenScale) : [];
     } catch { return []; }
+  }
+  // Ratings used to be 1–5; entries without `scale: 10` are converted (×2).
+  function toTenScale(it) {
+    if (!it || it.scale === MAX_RATING) return it;
+    const r = Number(it.rating) || 0;
+    return { ...it, rating: r ? Math.min(MAX_RATING, r * 2) : 0, scale: MAX_RATING };
   }
   function save() {
     try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state.items)); }
@@ -38,7 +45,11 @@
 
   function ratingColor(r) {
     if (!r) return '#8a8580';
-    return ['#b91c1c', '#ea580c', '#ca8a04', '#65a30d', '#15803d'][r - 1];
+    if (r <= 2) return '#b91c1c';
+    if (r <= 4) return '#ea580c';
+    if (r <= 6) return '#ca8a04';
+    if (r <= 8) return '#65a30d';
+    return '#15803d';
   }
   function pinIcon(item) {
     return L.divIcon({
@@ -64,7 +75,7 @@
   // ---------- Helpers ----------
   const starsHtml = (r) => {
     r = Number(r) || 0;
-    return `<span class="stars" title="${r}/5">${'★'.repeat(r)}<span class="off">${'★'.repeat(5 - r)}</span></span>`;
+    return `<span class="stars" title="${r}/${MAX_RATING}">${'★'.repeat(r)}<span class="off">${'★'.repeat(MAX_RATING - r)}</span></span>`;
   };
   const priceText = (p) => (p ? Array(Number(p)).fill('Ft').join(' ') : '');
   const fmtDate = (d) => (d ? new Date(d + 'T00:00:00').toLocaleDateString('hu-HU', { year: 'numeric', month: 'short', day: 'numeric' }) : '');
@@ -121,7 +132,7 @@
     const ret = state.items.filter((i) => i.wouldReturn).length;
     $('#stats').innerHTML = `
       <div class="stat"><b>${state.items.length}</b><span>étterem</span></div>
-      <div class="stat"><b>${avg}</b><span>átlag ★</span></div>
+      <div class="stat"><b>${avg}</b><span>átlag ★ (/10)</span></div>
       <div class="stat"><b>${ret}</b><span>visszamennék</span></div>`;
 
     $('#list').innerHTML = items.map((it) => `
@@ -197,18 +208,21 @@
 
   function setRating(r) {
     form.rating.value = r || '';
+    const lbl = $('#rating-value');
+    if (lbl) lbl.textContent = r ? `${r}/${MAX_RATING}` : '';
     $('#stars-input').querySelectorAll('button').forEach((b, i) => {
       b.classList.toggle('on', i < r);
       b.setAttribute('aria-checked', String(i + 1 === Number(r)));
     });
   }
-  $('#stars-input').innerHTML = [1, 2, 3, 4, 5]
+  $('#stars-input').innerHTML = Array.from({ length: MAX_RATING }, (_, i) => i + 1)
     .map((n) => `<button type="button" role="radio" data-r="${n}" aria-label="${n} csillag">★</button>`).join('');
   $('#stars-input').addEventListener('click', (e) => {
     const b = e.target.closest('button');
     if (!b) return;
     const r = Number(b.dataset.r);
     setRating(Number(form.rating.value) === r ? 0 : r);
+    $('#rating-value').textContent = form.rating.value ? `${form.rating.value}/${MAX_RATING}` : '';
   });
 
   function setCoords(lat, lng) {
@@ -270,6 +284,7 @@
       cuisine: form.cuisine.value.trim().toLowerCase(),
       price: form.price.value,
       rating: Number(form.rating.value) || 0,
+      scale: MAX_RATING,
       date: form.date.value,
       wouldReturn: form.wouldReturn.checked,
       notes: form.notes.value.trim(),
@@ -366,7 +381,7 @@
     try {
       const data = JSON.parse(await file.text());
       if (!Array.isArray(data)) throw new Error('A fájl nem étteremlistát tartalmaz.');
-      const valid = data.filter((x) => x && typeof x.name === 'string').map((x) => ({ ...x, id: x.id || uid() }));
+      const valid = data.filter((x) => x && typeof x.name === 'string').map((x) => toTenScale({ ...x, id: x.id || uid() }));
       const replace = state.items.length === 0 ||
         confirm(`${valid.length} étterem a fájlban.\n\nOK = a jelenlegi lista CSERÉJE\nMégse = HOZZÁFŰZÉS (azonos azonosítójúak frissülnek)`);
       if (replace) state.items = valid;
