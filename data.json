@@ -18,5 +18,24 @@
     "lat": 47.501240487544365,
     "lng": 19.064444303512577,
     "updatedAt": "2026-11-22T18:13:57.429Z"
+  },
+  {
+    "id": "mws5r7co2pjb6r",
+    "createdAt": "2026-11-22T18:16:05.112Z",
+    "name": "WAFU Ramen",
+    "status": "visited",
+    "type": "etterem",
+    "address": "Budafoki út 41",
+    "district": "XI",
+    "cuisine": "japán",
+    "price": "",
+    "rating": 8,
+    "scale": 10,
+    "date": "2026-11-22",
+    "wouldReturn": true,
+    "notes": "Finom ramen. Menüben elég megérős. Nagyon pici hely.",
+    "url": "https://maps.app.goo.gl/e1QyoYoTtVNsqHZj8",
+    "lat": 47.4782831,
+    "lng": 19.0535477
   }
 ]
