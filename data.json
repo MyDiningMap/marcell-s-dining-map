@@ -477,5 +477,23 @@
     "url": "https://maps.app.goo.gl/n3sGYdL2caMT6wNo9",
     "lat": 47.4768313,
     "lng": 19.0461297
+  },
+  {
+    "id": "mws9dlwyv5srif",
+    "createdAt": "2026-11-22T19:57:29.266Z",
+    "name": "Pastamore",
+    "status": "wishlist",
+    "type": "etterem",
+    "address": "dob utca 18",
+    "district": "VII",
+    "cuisine": "",
+    "price": "",
+    "rating": 0,
+    "scale": 10,
+    "wouldReturn": false,
+    "notes": "",
+    "url": "https://maps.app.goo.gl/JRV1Vq85GUsSircH6",
+    "lat": 47.4979225,
+    "lng": 19.0606484
   }
 ]
