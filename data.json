@@ -1,1 +1,21 @@
-[]
+[
+  {
+    "id": "mws5fhmgt37o8j",
+    "createdAt": "2026-11-22T18:06:58.552Z",
+    "name": "Mori Ramen",
+    "status": "visited",
+    "type": "etterem",
+    "address": "1073 Akácfa",
+    "district": "VII",
+    "cuisine": "japán",
+    "price": "",
+    "rating": 10,
+    "scale": 10,
+    "date": "2026-11-22",
+    "wouldReturn": true,
+    "notes": "",
+    "url": "",
+    "lat": null,
+    "lng": null
+  }
+]
