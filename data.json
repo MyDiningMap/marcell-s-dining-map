@@ -803,5 +803,23 @@
     "url": "https://maps.app.goo.gl/mEBishbFdYsCWPLr6",
     "lat": 47.5041397,
     "lng": 19.0633192
+  },
+  {
+    "id": "mwsa17opsyx8ir",
+    "createdAt": "2026-11-22T20:15:50.569Z",
+    "name": "86 Kitchen",
+    "status": "wishlist",
+    "type": "etterem",
+    "address": "podmaniczky 29",
+    "district": "VI",
+    "cuisine": "vietnámi",
+    "price": "",
+    "rating": 0,
+    "scale": 10,
+    "wouldReturn": false,
+    "notes": "",
+    "url": "https://maps.app.goo.gl/roHn71p2bzKHpxfp7",
+    "lat": 47.5093646,
+    "lng": 19.0590661
   }
 ]
