@@ -1,4 +1,4 @@
-# Marcell Dining Map
+# Marcell's Dining Map
 
 Személyes webapp a kipróbált és a kinézett budapesti éttermek, pékségek, kávézók nyilvántartására, térképpel.
 
@@ -24,7 +24,7 @@ Személyes webapp a kipróbált és a kinézett budapesti éttermek, pékségek,
 - **Szerkeszteni csak a tulajdonos tud**: ⋯ menü → „Belépés szerkesztéshez”, ahol egy GitHub-tokent kell megadni.
   Minden mentés automatikusan commitolódik a `data.json`-ba, és kb. 1 perc múlva a látogatók is látják.
 - Token készítése: https://github.com/settings/personal-access-tokens/new
-  - Repository access: *Only select repositories* → `marcell-dining-map`
+  - Repository access: *Only select repositories* → `marcell-s-dining-map`
   - Permissions → „+ Add permissions” → **Contents**, majd a mellette lévő „Read-only” legördülőben **Read and write**
   - Alternatíva: classic token (https://github.com/settings/tokens/new) csak a `public_repo` jogosultsággal
 - A token csak a saját böngésződ `localStorage`-ában marad. Kilépés: ⋯ → „Kilépés a szerkesztő módból”.
