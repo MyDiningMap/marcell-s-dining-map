@@ -1,7 +1,16 @@
 (() => {
   'use strict';
 
-  const STORAGE_KEY = 'diningmap.restaurants.v1';
+  // Where the shared data lives. Everyone reads data.json from the site;
+  // only someone with a GitHub token that can push to this repo can save.
+  const GH = {
+    owner: 'Marcell-testing',
+    repo: 'diningmap',
+    branch: 'claude/keen-euler-7pfh59', // the branch GitHub Pages is published from
+    path: 'data.json',
+  };
+  const STORAGE_KEY = 'diningmap.restaurants.v1'; // local copy (older versions kept data only here)
+  const TOKEN_KEY = 'diningmap.ghToken';
   const TAB_KEY = 'diningmap.tab';
   const MAX_RATING = 10;
   const BUDAPEST = [47.4979, 19.0402];
@@ -23,9 +32,14 @@
   const today = () => new Date().toISOString().slice(0, 10);
 
   // ---------- Storage ----------
-  function load() {
+  const ls = {
+    get(k) { try { return localStorage.getItem(k); } catch { return null; } },
+    set(k, v) { try { localStorage.setItem(k, v); } catch { /* ignore */ } },
+    del(k) { try { localStorage.removeItem(k); } catch { /* ignore */ } },
+  };
+  function loadLocal() {
     try {
-      const raw = localStorage.getItem(STORAGE_KEY);
+      const raw = ls.get(STORAGE_KEY);
       const data = raw ? JSON.parse(raw) : [];
       return Array.isArray(data) ? data.map(normalize) : [];
     } catch { return []; }
@@ -44,16 +58,111 @@
     if (out.status !== 'wishlist') out.status = 'visited';
     return out;
   }
-  function save() {
-    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state.items)); }
-    catch (e) { alert('Nem sikerült menteni a böngészőbe: ' + e.message); }
-  }
   function loadTab() {
-    try { const t = localStorage.getItem(TAB_KEY); return ['visited', 'wishlist', 'all'].includes(t) ? t : 'visited'; }
-    catch { return 'visited'; }
+    const t = ls.get(TAB_KEY);
+    return ['visited', 'wishlist', 'all'].includes(t) ? t : 'visited';
   }
 
-  const state = { items: load(), selectedId: null, editingId: null, tab: loadTab() };
+  const state = { items: [], selectedId: null, editingId: null, tab: loadTab(), canEdit: false, sha: null };
+
+  // ---------- GitHub sync ----------
+  const API = `https://api.github.com/repos/${GH.owner}/${GH.repo}`;
+  const ghHeaders = (token) => ({
+    Accept: 'application/vnd.github+json',
+    Authorization: `Bearer ${token}`,
+    'X-GitHub-Api-Version': '2022-11-28',
+  });
+  const b64encode = (str) => {
+    const bytes = new TextEncoder().encode(str);
+    let bin = '';
+    for (let i = 0; i < bytes.length; i += 0x8000) bin += String.fromCharCode(...bytes.subarray(i, i + 0x8000));
+    return btoa(bin);
+  };
+  const b64decode = (b64) => new TextDecoder().decode(Uint8Array.from(atob(b64.replace(/\s/g, '')), (c) => c.charCodeAt(0)));
+
+  async function ghCheckToken(token) {
+    const res = await fetch(API, { headers: ghHeaders(token) });
+    if (res.status === 401) throw new Error('A token érvénytelen vagy lejárt.');
+    if (res.status === 404) throw new Error('A token nem fér hozzá a diningmap repóhoz.');
+    if (!res.ok) throw new Error(`GitHub hiba (${res.status}).`);
+    const repo = await res.json();
+    if (repo.permissions && !repo.permissions.push) throw new Error('A tokennek nincs írási joga a repóhoz.');
+  }
+
+  // Reads data.json through the API (always the latest version, with its sha).
+  async function ghLoad(token) {
+    const url = `${API}/contents/${encodeURIComponent(GH.path)}?ref=${encodeURIComponent(GH.branch)}`;
+    const res = await fetch(url, { headers: ghHeaders(token), cache: 'no-store' });
+    if (res.status === 404) return { items: [], sha: null };
+    if (res.status === 401) throw new Error('A token érvénytelen vagy lejárt.');
+    if (!res.ok) throw new Error(`GitHub hiba (${res.status}).`);
+    const file = await res.json();
+    const data = JSON.parse(b64decode(file.content || '') || '[]');
+    return { items: Array.isArray(data) ? data.map(normalize) : [], sha: file.sha };
+  }
+
+  async function ghSave(token, items, sha) {
+    const res = await fetch(`${API}/contents/${encodeURIComponent(GH.path)}`, {
+      method: 'PUT',
+      headers: { ...ghHeaders(token), 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        message: `Adatok frissítése (${items.length} hely)`,
+        content: b64encode(JSON.stringify(items, null, 2) + '\n'),
+        branch: GH.branch,
+        ...(sha ? { sha } : {}),
+      }),
+    });
+    if (res.status === 409 || res.status === 422) { const e = new Error('conflict'); e.conflict = true; throw e; }
+    if (res.status === 401) throw new Error('A token érvénytelen vagy lejárt.');
+    if (!res.ok) throw new Error(`GitHub hiba (${res.status}).`);
+    return (await res.json()).content.sha;
+  }
+
+  // Viewers read the published file from the site itself.
+  async function loadPublic() {
+    const res = await fetch(`${GH.path}?t=${Date.now()}`, { cache: 'no-store' });
+    if (!res.ok) return [];
+    const data = await res.json();
+    return Array.isArray(data) ? data.map(normalize) : [];
+  }
+
+  function setSync(status, text) {
+    const el = $('#sync');
+    el.dataset.status = status;
+    el.textContent = text;
+    el.title = status === 'error' ? 'Kattints az újrapróbáláshoz' : '';
+  }
+
+  let saving = false;
+  let saveAgain = false;
+  async function save() {
+    ls.set(STORAGE_KEY, JSON.stringify(state.items));
+    const token = ls.get(TOKEN_KEY);
+    if (!state.canEdit || !token) return;
+    if (saving) { saveAgain = true; return; }
+    saving = true;
+    setSync('saving', 'Mentés…');
+    try {
+      do {
+        saveAgain = false;
+        try {
+          state.sha = await ghSave(token, state.items, state.sha);
+        } catch (e) {
+          if (!e.conflict) throw e;
+          // data.json changed elsewhere (e.g. another device): take its sha and overwrite with our list
+          state.sha = (await ghLoad(token)).sha;
+          state.sha = await ghSave(token, state.items, state.sha);
+        }
+      } while (saveAgain);
+      setSync('ok', 'Mentve ✓');
+    } catch (e) {
+      setSync('error', 'Mentési hiba – újra');
+      console.error(e);
+      alert('Nem sikerült menteni a GitHubra: ' + e.message + '\n\nA változás ezen az eszközön megvan; kattints a „Mentési hiba” feliratra az újrapróbáláshoz.');
+    } finally {
+      saving = false;
+    }
+  }
   const isWish = (it) => it.status === 'wishlist';
 
   // ---------- Map ----------
@@ -94,7 +203,7 @@
       $('#dlg').showModal();
       return;
     }
-    if ($('#dlg').open) return;
+    if ($('#dlg').open || !state.canEdit) return;
     openForm(null, { lat: e.latlng.lat, lng: e.latlng.lng });
   });
 
@@ -107,6 +216,7 @@
   const fmtDate = (d) => (d ? new Date(d + 'T00:00:00').toLocaleDateString('hu-HU', { year: 'numeric', month: 'short', day: 'numeric' }) : '');
   const uid = () => Date.now().toString(36) + Math.random().toString(36).slice(2, 8);
   const typeIcon = (it) => (TYPES[it.type] || TYPES.etterem).icon;
+  const safeUrl = (u) => (/^https?:\/\//i.test(u || '') ? u : '');
 
   function metaLine(it) {
     return [(TYPES[it.type] || TYPES.etterem).label, it.district && `${it.district}. ker.`, it.cuisine,
@@ -195,12 +305,12 @@
         </div>
         <div class="item-meta">${metaLine(it) || esc(it.address)}</div>
         ${it.notes ? `<div class="item-notes">${esc(it.notes)}</div>` : ''}
-        ${isWish(it) ? `<button class="btn small visited-btn" data-visit="${it.id}">✓ Voltam itt!</button>` : ''}
+        ${isWish(it) && state.canEdit ? `<button class="btn small visited-btn" data-visit="${it.id}">✓ Voltam itt!</button>` : ''}
       </li>`).join('');
 
     const empty = $('#empty');
     if (!items.length) {
-      const none = state.tab === 'wishlist'
+      const none = !state.canEdit ? 'Még nincs itt egy hely sem.' : state.tab === 'wishlist'
         ? 'Még üres a kívánságlistád. Az <b>+ Új hely</b> gombbal vagy a térképre kattintva vehetsz fel helyet, amit ki szeretnél próbálni.'
         : 'Még nincs hely a listán. Kattints az <b>+ Új hely</b> gombra, vagy a térképen egy pontra.';
       const tabHas = state.items.some((i) => state.tab === 'all' || (state.tab === 'wishlist') === isWish(i));
@@ -219,9 +329,9 @@
         ${isWish(it) ? '<div class="popup-wish">♡ Kívánságlistán</div>' : starsHtml(it.rating)}
         ${it.address ? `<div>${esc(it.address)}</div>` : ''}
         ${it.notes ? `<div style="margin-top:4px">${esc(it.notes)}</div>` : ''}
-        ${it.url ? `<div><a href="${esc(it.url)}" target="_blank" rel="noopener">Link ↗</a></div>` : ''}
-        <button class="popup-edit" data-edit="${it.id}">Szerkesztés</button>
-        ${isWish(it) ? `<button class="popup-edit" data-visit="${it.id}">✓ Voltam itt!</button>` : ''}`);
+        ${safeUrl(it.url) ? `<div><a href="${esc(safeUrl(it.url))}" target="_blank" rel="noopener">Link ↗</a></div>` : ''}
+        ${state.canEdit ? `<button class="popup-edit" data-edit="${it.id}">Szerkesztés</button>` : ''}
+        ${state.canEdit && isWish(it) ? `<button class="popup-edit" data-visit="${it.id}">✓ Voltam itt!</button>` : ''}`);
       m.on('click', () => select(it.id, false));
       m.addTo(markerLayer);
       markers.set(it.id, m);
@@ -245,11 +355,11 @@
     const li = e.target.closest('.item');
     if (!li) return;
     const id = li.dataset.id;
-    if (state.selectedId === id || !markers.has(id)) openForm(id);
+    if (state.canEdit && (state.selectedId === id || !markers.has(id))) openForm(id);
     else select(id);
   });
   $('#list').addEventListener('dblclick', (e) => {
-    if (e.target.closest('[data-visit]')) return;
+    if (e.target.closest('[data-visit]') || !state.canEdit) return;
     const li = e.target.closest('.item');
     if (li) openForm(li.dataset.id);
   });
@@ -320,6 +430,7 @@
   }
 
   function openForm(id, preset = {}, opts = {}) {
+    if (!state.canEdit) return;
     state.editingId = id;
     const it = id ? state.items.find((x) => x.id === id) : null;
     form.reset();
@@ -509,5 +620,97 @@
     else if (pts.length === 1) map.setView(pts[0], 16);
   }
 
-  setTab(state.tab);
+  // ---------- Owner login ----------
+  function applyMode() {
+    document.body.classList.toggle('readonly', !state.canEdit);
+    document.body.classList.toggle('owner', state.canEdit);
+    if (!state.canEdit) setSync('', '');
+    render();
+  }
+
+  const loginDlg = $('#login-dlg');
+  $('#btn-login').addEventListener('click', () => {
+    $('.menu').open = false;
+    $('#login-error').textContent = '';
+    $('#login-token').value = '';
+    loginDlg.showModal();
+  });
+  $('#login-cancel').addEventListener('click', () => loginDlg.close());
+  $('#login-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const token = $('#login-token').value.trim();
+    if (!token) return;
+    const btn = $('#login-submit');
+    btn.disabled = true;
+    $('#login-error').textContent = 'Ellenőrzés…';
+    try {
+      await ghCheckToken(token);
+      const remote = await ghLoad(token);
+      ls.set(TOKEN_KEY, token);
+      state.canEdit = true;
+      state.sha = remote.sha;
+      const local = loadLocal();
+      if (!remote.items.length && local.length &&
+          confirm(`A megosztott lista még üres, de ebben a böngészőben ${local.length} hely van elmentve.\n\nFeltöltsem őket?`)) {
+        state.items = local;
+        loginDlg.close();
+        applyMode();
+        fitAll();
+        await save();
+        return;
+      }
+      state.items = remote.items;
+      ls.set(STORAGE_KEY, JSON.stringify(state.items));
+      loginDlg.close();
+      setSync('ok', 'Szerkesztő mód');
+      applyMode();
+      fitAll();
+    } catch (err) {
+      $('#login-error').textContent = err.message;
+    } finally {
+      btn.disabled = false;
+    }
+  });
+
+  $('#btn-logout').addEventListener('click', () => {
+    $('.menu').open = false;
+    if (!confirm('Kilépsz a szerkesztő módból? Ezen az eszközön a tokent is elfelejtem.')) return;
+    ls.del(TOKEN_KEY);
+    state.canEdit = false;
+    applyMode();
+  });
+
+  $('#sync').addEventListener('click', () => {
+    if ($('#sync').dataset.status === 'error') save();
+  });
+
+  async function init() {
+    document.body.classList.add('readonly');
+    setTab(state.tab);
+    const token = ls.get(TOKEN_KEY);
+    try {
+      if (token) {
+        setSync('saving', 'Betöltés…');
+        const remote = await ghLoad(token);
+        state.items = remote.items;
+        state.sha = remote.sha;
+        state.canEdit = true;
+        ls.set(STORAGE_KEY, JSON.stringify(state.items));
+        setSync('ok', 'Szerkesztő mód');
+      } else {
+        state.items = await loadPublic();
+      }
+    } catch (err) {
+      console.error(err);
+      if (token) {
+        alert('Nem sikerült betölteni az adatokat a GitHubról: ' + err.message + '\n\nOlvasó módban folytatom; a ⋯ menüben újra beléphetsz.');
+        if (/token/i.test(err.message)) ls.del(TOKEN_KEY);
+      }
+      state.items = await loadPublic().catch(() => []);
+    }
+    applyMode();
+    fitAll();
+  }
+
+  init();
 })();

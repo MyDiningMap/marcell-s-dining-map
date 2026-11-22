@@ -17,15 +17,18 @@
       </div>
     </div>
     <div class="actions">
-      <button id="btn-add" class="btn primary">+ Új hely</button>
+      <button id="sync" class="sync owner-only" type="button"></button>
+      <button id="btn-add" class="btn primary owner-only">+ Új hely</button>
       <details class="menu">
         <summary class="btn" aria-label="További műveletek">⋯</summary>
         <div class="menu-panel">
-          <button id="btn-export" class="menu-item">Mentés fájlba (JSON)</button>
-          <label class="menu-item">Betöltés fájlból
+          <button id="btn-login" class="menu-item readonly-only">🔒 Belépés szerkesztéshez</button>
+          <button id="btn-export" class="menu-item owner-only">Mentés fájlba (JSON)</button>
+          <label class="menu-item owner-only">Betöltés fájlból
             <input id="file-import" type="file" accept="application/json,.json" hidden>
           </label>
-          <button id="btn-clear" class="menu-item danger">Minden adat törlése</button>
+          <button id="btn-clear" class="menu-item danger owner-only">Minden adat törlése</button>
+          <button id="btn-logout" class="menu-item owner-only">Kilépés a szerkesztő módból</button>
         </div>
       </details>
     </div>
@@ -161,6 +164,35 @@
         <span class="spacer"></span>
         <button type="button" id="btn-cancel" class="btn">Mégse</button>
         <button type="submit" class="btn primary">Mentés</button>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog id="login-dlg" class="dialog">
+    <form id="login-form">
+      <h2>Belépés szerkesztéshez</h2>
+      <p class="login-text">
+        Szerkeszteni csak a lista tulajdonosa tud. Add meg a GitHub-tokenedet, ami írni tudja a
+        <b>diningmap</b> repót. A token csak ebben a böngészőben marad, sehova máshova nem kerül.
+      </p>
+      <details class="login-help">
+        <summary>Hogyan kapok tokent?</summary>
+        <ol>
+          <li>Nyisd meg: <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener">github.com → Fine-grained token</a></li>
+          <li><b>Token name:</b> pl. „diningmap”, <b>Expiration:</b> amennyi tetszik (pl. 1 év).</li>
+          <li><b>Repository access:</b> „Only select repositories” → <b>diningmap</b>.</li>
+          <li><b>Permissions → Repository permissions → Contents:</b> „Read and write”.</li>
+          <li><b>Generate token</b>, majd másold be ide.</li>
+        </ol>
+      </details>
+      <label>GitHub token
+        <input id="login-token" type="password" autocomplete="off" placeholder="github_pat_…" required>
+      </label>
+      <p class="login-error" id="login-error" role="alert"></p>
+      <div class="dialog-actions">
+        <span class="spacer"></span>
+        <button type="button" id="login-cancel" class="btn">Mégse</button>
+        <button type="submit" id="login-submit" class="btn primary">Belépés</button>
       </div>
     </form>
   </dialog>
