@@ -5,17 +5,18 @@
     "name": "Mori Ramen",
     "status": "visited",
     "type": "etterem",
-    "address": "1073 Akácfa",
+    "address": "Akácfa utca 55 1073",
     "district": "VII",
     "cuisine": "japán",
     "price": "",
-    "rating": 10,
+    "rating": 1,
     "scale": 10,
     "date": "2026-11-22",
     "wouldReturn": true,
     "notes": "",
     "url": "",
-    "lat": null,
-    "lng": null
+    "lat": 47.501240487544365,
+    "lng": 19.064444303512577,
+    "updatedAt": "2026-11-22T18:08:59.365Z"
   }
 ]
