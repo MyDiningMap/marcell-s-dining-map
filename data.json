@@ -443,7 +443,7 @@
   {
     "id": "mws99le41dth4u",
     "createdAt": "2026-11-22T19:54:21.964Z",
-    "name": "kawamura ramen",
+    "name": "Kawamura ramen",
     "status": "wishlist",
     "type": "etterem",
     "address": "dohány utca 54",
@@ -454,8 +454,9 @@
     "scale": 10,
     "wouldReturn": false,
     "notes": "",
-    "url": "",
+    "url": "https://maps.app.goo.gl/WXk9XRxTDwJV8v4v5",
     "lat": 47.4975879,
-    "lng": 19.0682541
+    "lng": 19.0682541,
+    "updatedAt": "2026-11-22T19:54:44.382Z"
   }
 ]
