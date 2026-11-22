@@ -166,11 +166,84 @@
   const isWish = (it) => it.status === 'wishlist';
 
   // ---------- Map ----------
-  const map = L.map('map', { zoomControl: true }).setView(BUDAPEST, 13);
-  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    maxZoom: 19,
-    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-  }).addTo(map);
+  const map = L.map('map', { zoomControl: false }).setView(BUDAPEST, 13);
+  L.control.zoom({ position: 'bottomright', zoomInTitle: 'Nagyítás', zoomOutTitle: 'Kicsinyítés' }).addTo(map);
+
+  // Base maps: CARTO Voyager (light) / Dark Matter (dark mode), and satellite imagery.
+  const OSM = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>';
+  const CARTO = `${OSM} &copy; <a href="https://carto.com/attributions">CARTO</a>`;
+  const carto = (style) => L.tileLayer(`https://{s}.basemaps.cartocdn.com/rastertiles/${style}/{z}/{x}/{y}{r}.png`, {
+    subdomains: 'abcd', maxZoom: 20, attribution: CARTO,
+  });
+  const baseLight = carto('voyager');
+  const baseDark = carto('dark_all');
+  const satellite = L.layerGroup([
+    L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+      maxZoom: 19, attribution: 'Tiles &copy; Esri, Maxar, Earthstar Geographics',
+    }),
+    carto('voyager_only_labels'),
+  ]);
+  const darkQuery = window.matchMedia ? window.matchMedia('(prefers-color-scheme: dark)') : null;
+  let mapMode = 'map';
+  function applyBaseLayer() {
+    [baseLight, baseDark, satellite].forEach((l) => map.removeLayer(l));
+    if (mapMode === 'sat') satellite.addTo(map);
+    else (darkQuery && darkQuery.matches ? baseDark : baseLight).addTo(map);
+    document.querySelectorAll('.map-mode button').forEach((b) => b.classList.toggle('on', b.dataset.mode === mapMode));
+  }
+  if (darkQuery && darkQuery.addEventListener) darkQuery.addEventListener('change', applyBaseLayer);
+
+  // Map / satellite switch
+  const ModeControl = L.Control.extend({
+    options: { position: 'topright' },
+    onAdd() {
+      const el = L.DomUtil.create('div', 'map-mode');
+      el.innerHTML = '<button type="button" data-mode="map">Térkép</button><button type="button" data-mode="sat">Műhold</button>';
+      L.DomEvent.disableClickPropagation(el);
+      el.addEventListener('click', (e) => {
+        const b = e.target.closest('button');
+        if (!b) return;
+        mapMode = b.dataset.mode;
+        applyBaseLayer();
+      });
+      return el;
+    },
+  });
+  new ModeControl().addTo(map);
+
+  // "My location" button
+  let meMarker = null;
+  const LocateControl = L.Control.extend({
+    options: { position: 'bottomright' },
+    onAdd() {
+      const el = L.DomUtil.create('button', 'map-locate');
+      el.type = 'button';
+      el.title = 'Saját helyem';
+      el.setAttribute('aria-label', 'Saját helyem');
+      el.innerHTML = '<svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><circle cx="12" cy="12" r="4" fill="currentColor"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="12" r="7.5" fill="none" stroke="currentColor" stroke-width="2"/></svg>';
+      L.DomEvent.disableClickPropagation(el);
+      el.addEventListener('click', () => {
+        if (!navigator.geolocation) return;
+        el.classList.add('busy');
+        navigator.geolocation.getCurrentPosition((pos) => {
+          el.classList.remove('busy');
+          const ll = [pos.coords.latitude, pos.coords.longitude];
+          if (meMarker) map.removeLayer(meMarker);
+          meMarker = L.marker(ll, {
+            icon: L.divIcon({ className: '', html: '<div class="me-dot"></div>', iconSize: [18, 18], iconAnchor: [9, 9] }),
+            interactive: false, keyboard: false,
+          }).addTo(map);
+          map.setView(ll, Math.max(map.getZoom(), 15));
+        }, () => {
+          el.classList.remove('busy');
+          alert('Nem sikerült lekérni a helyzetedet (lehet, hogy nincs engedélyezve a böngészőben).');
+        }, { enableHighAccuracy: true, timeout: 10000 });
+      });
+      return el;
+    },
+  });
+  new LocateControl().addTo(map);
+  applyBaseLayer();
   const markerLayer = L.layerGroup().addTo(map);
   const markers = new Map();
   let draftMarker = null;
@@ -190,7 +263,7 @@
     return L.divIcon({
       className: '',
       html: `<div class="pin${wish ? ' wish' : ''}" style="background:${bg}"><span>${label}</span></div>`,
-      iconSize: [28, 28], iconAnchor: [14, 28], popupAnchor: [0, -26]
+      iconSize: [32, 32], iconAnchor: [16, 32], popupAnchor: [0, -30]
     });
   }
 
@@ -421,7 +494,10 @@
       : 'Nincs hely megadva.';
     if (draftMarker) { map.removeLayer(draftMarker); draftMarker = null; }
     if (lat != null && lat !== '') {
-      draftMarker = L.marker([Number(lat), Number(lng)], { draggable: true, opacity: 0.75 }).addTo(map);
+      draftMarker = L.marker([Number(lat), Number(lng)], {
+        draggable: true,
+        icon: L.divIcon({ className: '', html: '<div class="pin draft"><span>+</span></div>', iconSize: [32, 32], iconAnchor: [16, 32] }),
+      }).addTo(map);
       draftMarker.on('dragend', () => {
         const p = draftMarker.getLatLng();
         setCoords(p.lat, p.lng);
