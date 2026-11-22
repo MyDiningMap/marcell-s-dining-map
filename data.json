@@ -666,7 +666,7 @@
     "type": "etterem",
     "address": "déri miksa 3",
     "district": "VIII",
-    "cuisine": "japán",
+    "cuisine": "vietnámi",
     "price": "",
     "rating": 0,
     "scale": 10,
@@ -674,6 +674,7 @@
     "notes": "",
     "url": "https://maps.app.goo.gl/FLppQmBv1QfQD6zk6",
     "lat": 47.492549,
-    "lng": 19.073706
+    "lng": 19.073706,
+    "updatedAt": "2026-11-22T20:06:37.555Z"
   }
 ]
