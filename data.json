@@ -402,5 +402,23 @@
     "url": "https://maps.app.goo.gl/jQtUNM32JYJY2x6H9",
     "lat": 47.5130612,
     "lng": 19.0514921
+  },
+  {
+    "id": "mws925up5minh8",
+    "createdAt": "2026-11-22T19:48:35.233Z",
+    "name": "Forni Di Napoli",
+    "status": "visited",
+    "type": "etterem",
+    "address": "szent istván körút 7",
+    "district": "V",
+    "cuisine": "",
+    "price": "",
+    "rating": 9,
+    "scale": 10,
+    "wouldReturn": false,
+    "notes": "A pizza finom, ár-értékben sem vészes, kicsit drágább, de ez a neve meg a lokáció miatt van, de amúgy megérős.",
+    "url": "https://maps.app.goo.gl/y2JdxFCmF495hp2X6",
+    "lat": 47.5121729,
+    "lng": 19.0494754
   }
 ]
