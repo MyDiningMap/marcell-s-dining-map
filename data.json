@@ -121,11 +121,11 @@
     "price": "",
     "rating": 9,
     "scale": 10,
-    "wouldReturn": false,
+    "wouldReturn": true,
     "notes": "Ha fajitas akkor csak az Iguana.",
     "url": "https://maps.app.goo.gl/dfBDFEL2ca746hVD9",
     "lat": 47.5046719,
     "lng": 19.0485713,
-    "updatedAt": "2026-11-22T18:35:02.863Z"
+    "updatedAt": "2026-11-22T18:37:32.229Z"
   }
 ]
