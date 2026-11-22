@@ -421,5 +421,23 @@
     "lat": 47.5121729,
     "lng": 19.0494754,
     "updatedAt": "2026-11-22T19:48:38.466Z"
+  },
+  {
+    "id": "mws98hys2xuga6",
+    "createdAt": "2026-11-22T19:53:30.868Z",
+    "name": "In town HotPot",
+    "status": "wishlist",
+    "type": "etterem",
+    "address": "jegenye utca 26",
+    "district": "X",
+    "cuisine": "kínai",
+    "price": "",
+    "rating": 0,
+    "scale": 10,
+    "wouldReturn": false,
+    "notes": "",
+    "url": "",
+    "lat": 47.4804918,
+    "lng": 19.1252506
   }
 ]
