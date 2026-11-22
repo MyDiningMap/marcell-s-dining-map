@@ -621,5 +621,23 @@
     "url": "https://maps.app.goo.gl/ges7bc4Pz1BzfbSV7",
     "lat": 47.5018571,
     "lng": 19.0706648
+  },
+  {
+    "id": "mws9mmvzmiwrnk",
+    "createdAt": "2026-11-22T20:04:30.431Z",
+    "name": "Chez Matild",
+    "status": "wishlist",
+    "type": "pekseg",
+    "address": "ménesi út 82",
+    "district": "XI",
+    "cuisine": "",
+    "price": "",
+    "rating": 0,
+    "scale": 10,
+    "wouldReturn": false,
+    "notes": "",
+    "url": "https://maps.app.goo.gl/Q38noYqHPmZ1XNjm8",
+    "lat": 47.4831968,
+    "lng": 19.0350218
   }
 ]
