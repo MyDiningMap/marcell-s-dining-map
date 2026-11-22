@@ -74,11 +74,11 @@
     "lng": 19.0520884
   },
   {
+    "status": "visited",
+    "type": "etterem",
     "id": "mws6a33tiq0zo4",
     "createdAt": "2026-11-22T18:30:46.073Z",
     "name": "Pho 1993",
-    "status": "visited",
-    "type": "etterem",
     "address": "Tompa utca",
     "district": "",
     "cuisine": "vietnámi",
@@ -92,11 +92,11 @@
     "lng": 19.072419181466106
   },
   {
+    "status": "visited",
+    "type": "etterem",
     "id": "mws6c94d204850",
     "createdAt": "2026-11-22T18:32:27.181Z",
     "name": "Black Cab Burger",
-    "status": "visited",
-    "type": "etterem",
     "address": "mester utca 46",
     "district": "IX",
     "cuisine": "burger",
@@ -111,11 +111,11 @@
     "updatedAt": "2026-11-22T18:37:36.295Z"
   },
   {
+    "status": "visited",
+    "type": "etterem",
     "id": "mws6f6cq5uviic",
     "createdAt": "2026-11-22T18:34:43.562Z",
     "name": "Iguana Bar and Grill",
-    "status": "visited",
-    "type": "etterem",
     "address": "Zoltán utca 16",
     "district": "V",
     "cuisine": "mexikói",
@@ -128,5 +128,23 @@
     "lat": 47.5046719,
     "lng": 19.0485713,
     "updatedAt": "2026-11-22T18:37:32.229Z"
+  },
+  {
+    "id": "mws6szd709o5it",
+    "createdAt": "2026-11-22T18:45:27.691Z",
+    "name": "MANU+",
+    "status": "visited",
+    "type": "etterem",
+    "address": "Vámház körút 8",
+    "district": "V",
+    "cuisine": "pizza",
+    "price": "",
+    "rating": 9,
+    "scale": 10,
+    "wouldReturn": true,
+    "notes": "OG pizzázó, egyetem alatt sokat jártunk ide. Nem okoz csalódást.",
+    "url": "https://maps.app.goo.gl/Bq1xYeQhpo2uuoa57",
+    "lat": 47.4881273,
+    "lng": 19.0587964
   }
 ]
