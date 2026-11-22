@@ -285,7 +285,7 @@
     "name": "Annapurna Nepáli Étterem",
     "address": "ráday utca 29",
     "district": "IX",
-    "cuisine": "",
+    "cuisine": "közel-keleti",
     "price": "",
     "rating": 7,
     "scale": 10,
@@ -293,7 +293,8 @@
     "notes": "Nepáli ételek, indiaihoz van legközelebb. Különleges fogások, egyszer megéri kipróbálni",
     "url": "https://maps.app.goo.gl/uJCPX3XvjgtskNz96",
     "lat": 47.4857452,
-    "lng": 19.0641934
+    "lng": 19.0641934,
+    "updatedAt": "2026-11-22T20:56:18.944Z"
   },
   {
     "status": "visited",
