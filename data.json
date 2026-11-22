@@ -676,5 +676,23 @@
     "lat": 47.492549,
     "lng": 19.073706,
     "updatedAt": "2026-11-22T20:06:37.555Z"
+  },
+  {
+    "id": "mws9rh9z20hu8p",
+    "createdAt": "2026-11-22T20:08:16.439Z",
+    "name": "KKODARI",
+    "status": "wishlist",
+    "type": "etterem",
+    "address": "krúdy 4",
+    "district": "VIII",
+    "cuisine": "koreai",
+    "price": "",
+    "rating": 0,
+    "scale": 10,
+    "wouldReturn": false,
+    "notes": "",
+    "url": "https://maps.app.goo.gl/vonnka1p1FrNNqSQ6",
+    "lat": 47.4902206,
+    "lng": 19.0671122
   }
 ]
