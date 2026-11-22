@@ -694,5 +694,23 @@
     "url": "https://maps.app.goo.gl/vonnka1p1FrNNqSQ6",
     "lat": 47.4902206,
     "lng": 19.0671122
+  },
+  {
+    "id": "mws9sepah8425p",
+    "createdAt": "2026-11-22T20:08:59.758Z",
+    "name": "ORMA",
+    "status": "wishlist",
+    "type": "pekseg",
+    "address": "horváth mihály tér 13",
+    "district": "",
+    "cuisine": "",
+    "price": "",
+    "rating": 0,
+    "scale": 10,
+    "wouldReturn": false,
+    "notes": "",
+    "url": "https://maps.app.goo.gl/z8J9KH2FLCdPVfMB6",
+    "lat": null,
+    "lng": null
   }
 ]
