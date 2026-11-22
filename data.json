@@ -821,5 +821,23 @@
     "url": "https://maps.app.goo.gl/roHn71p2bzKHpxfp7",
     "lat": 47.5093646,
     "lng": 19.0590661
+  },
+  {
+    "id": "mwsa29gwysdx2t",
+    "createdAt": "2026-11-22T20:16:39.536Z",
+    "name": "Zhu and Co",
+    "status": "wishlist",
+    "type": "etterem",
+    "address": "nagymező 66",
+    "district": "VI",
+    "cuisine": "japán",
+    "price": "",
+    "rating": 0,
+    "scale": 10,
+    "wouldReturn": false,
+    "notes": "Dumplingos hely",
+    "url": "https://maps.app.goo.gl/PwNDSGWwBNT7KHsU6",
+    "lat": 47.506242,
+    "lng": 19.0559734
   }
 ]
