@@ -56,6 +56,7 @@
     }
     if (!TYPES[out.type]) out.type = 'etterem';
     if (out.status !== 'wishlist') out.status = 'visited';
+    delete out.date; // the visit date is no longer tracked
     return out;
   }
   function loadTab() {
@@ -292,14 +293,13 @@
     return `<span class="stars" title="${r}/${MAX_RATING}">${'★'.repeat(r)}<span class="off">${'★'.repeat(MAX_RATING - r)}</span></span>`;
   };
   const priceText = (p) => (p ? Array(Number(p)).fill('Ft').join(' ') : '');
-  const fmtDate = (d) => (d ? new Date(d + 'T00:00:00').toLocaleDateString('hu-HU', { year: 'numeric', month: 'short', day: 'numeric' }) : '');
   const uid = () => Date.now().toString(36) + Math.random().toString(36).slice(2, 8);
   const typeIcon = (it) => (TYPES[it.type] || TYPES.etterem).icon;
   const safeUrl = (u) => (/^https?:\/\//i.test(u || '') ? u : '');
 
   function metaLine(it) {
     return [(TYPES[it.type] || TYPES.etterem).label, it.district && `${it.district}. ker.`, it.cuisine,
-      priceText(it.price), !isWish(it) && fmtDate(it.date)]
+      priceText(it.price)]
       .filter(Boolean).map(esc).join(' · ');
   }
 
@@ -338,7 +338,7 @@
       if (onlyReturn && !it.wouldReturn) return false;
       return true;
     });
-    const when = (x) => (isWish(x) ? (x.createdAt || '').slice(0, 10) : x.date) || '';
+    const when = (x) => x.createdAt || '';
     out.sort((a, b) => {
       if (sort === 'rating') return (b.rating || 0) - (a.rating || 0) || a.name.localeCompare(b.name, 'hu');
       if (sort === 'name') return a.name.localeCompare(b.name, 'hu');
@@ -478,7 +478,6 @@
     form.classList.toggle('is-wish', status === 'wishlist');
     document.querySelectorAll('.seg button').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.status === status)));
     form.notes.placeholder = status === 'wishlist' ? 'Miért szeretném kipróbálni? Ki ajánlotta?' : '';
-    if (status === 'visited' && !form.date.value) form.date.value = today();
   }
   $('#status-seg').addEventListener('click', (e) => {
     const b = e.target.closest('button');
@@ -516,13 +515,13 @@
       type: $('#f-type').value || 'etterem',
       ...preset,
     };
-    ['name', 'address', 'district', 'cuisine', 'price', 'date', 'notes', 'url']
+    ['name', 'address', 'district', 'cuisine', 'price', 'notes', 'url']
       .forEach((k) => { form[k].value = v[k] ?? ''; });
     form.type.value = v.type || 'etterem';
     form.wouldReturn.checked = !!v.wouldReturn;
     setRating(Number(v.rating) || 0);
     let status = v.status || 'visited';
-    if (opts.markVisited) { status = 'visited'; form.date.value = today(); }
+    if (opts.markVisited) status = 'visited';
     setStatus(status);
     setCoords(v.lat, v.lng);
     $('#dlg-title').textContent = opts.markVisited ? `Milyen volt? – ${it.name}` : (it ? 'Hely szerkesztése' : 'Új hely');
@@ -560,7 +559,6 @@
       price: form.price.value,
       rating: wish ? 0 : Number(form.rating.value) || 0,
       scale: MAX_RATING,
-      date: wish ? '' : form.date.value,
       wouldReturn: !wish && form.wouldReturn.checked,
       notes: form.notes.value.trim(),
       url: form.url.value.trim(),
