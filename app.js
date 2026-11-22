@@ -169,29 +169,35 @@
   const map = L.map('map', { zoomControl: false }).setView(BUDAPEST, 13);
   L.control.zoom({ position: 'bottomright', zoomInTitle: 'Nagyítás', zoomOutTitle: 'Kicsinyítés' }).addTo(map);
 
-  // Base maps: CARTO Voyager (light) / Dark Matter (dark mode), and satellite imagery.
+  // Base maps: OpenFreeMap vector map (free, no API key) rendered with MapLibre GL,
+  // falling back to plain OpenStreetMap tiles if WebGL is unavailable; Esri satellite imagery.
   const OSM = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>';
-  const CARTO = `${OSM} &copy; <a href="https://carto.com/attributions">CARTO</a>`;
-  const carto = (style) => L.tileLayer(`https://{s}.basemaps.cartocdn.com/rastertiles/${style}/{z}/{x}/{y}{r}.png`, {
-    subdomains: 'abcd', maxZoom: 20, attribution: CARTO,
-  });
-  const baseLight = carto('voyager');
-  const baseDark = carto('dark_all');
+  function makeStreetLayer() {
+    try {
+      if (L.maplibreGL && window.maplibregl && maplibregl.supported !== false) {
+        return L.maplibreGL({
+          style: 'https://tiles.openfreemap.org/styles/liberty',
+          attribution: `<a href="https://openfreemap.org" target="_blank" rel="noopener">OpenFreeMap</a> ${OSM}`,
+        });
+      }
+    } catch (e) { console.warn('Vector map unavailable, using raster tiles', e); }
+    return L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 19, attribution: OSM });
+  }
+  const street = makeStreetLayer();
   const satellite = L.layerGroup([
     L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
       maxZoom: 19, attribution: 'Tiles &copy; Esri, Maxar, Earthstar Geographics',
     }),
-    carto('voyager_only_labels'),
+    L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Reference/World_Boundaries_and_Places/MapServer/tile/{z}/{y}/{x}', {
+      maxZoom: 19,
+    }),
   ]);
-  const darkQuery = window.matchMedia ? window.matchMedia('(prefers-color-scheme: dark)') : null;
   let mapMode = 'map';
   function applyBaseLayer() {
-    [baseLight, baseDark, satellite].forEach((l) => map.removeLayer(l));
-    if (mapMode === 'sat') satellite.addTo(map);
-    else (darkQuery && darkQuery.matches ? baseDark : baseLight).addTo(map);
+    [street, satellite].forEach((l) => { if (map.hasLayer(l)) map.removeLayer(l); });
+    (mapMode === 'sat' ? satellite : street).addTo(map);
     document.querySelectorAll('.map-mode button').forEach((b) => b.classList.toggle('on', b.dataset.mode === mapMode));
   }
-  if (darkQuery && darkQuery.addEventListener) darkQuery.addEventListener('change', applyBaseLayer);
 
   // Map / satellite switch
   const ModeControl = L.Control.extend({
