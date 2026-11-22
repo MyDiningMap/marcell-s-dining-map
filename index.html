@@ -13,11 +13,11 @@
       <span class="logo" aria-hidden="true">🍽️</span>
       <div>
         <h1>Diningmap</h1>
-        <p class="subtitle">Kipróbált budapesti éttermeim</p>
+        <p class="subtitle">Budapesti éttermeim, pékségeim és kávézóim</p>
       </div>
     </div>
     <div class="actions">
-      <button id="btn-add" class="btn primary">+ Új étterem</button>
+      <button id="btn-add" class="btn primary">+ Új hely</button>
       <details class="menu">
         <summary class="btn" aria-label="További műveletek">⋯</summary>
         <div class="menu-panel">
@@ -33,15 +33,28 @@
 
   <main class="layout">
     <aside class="sidebar">
+      <nav class="tabs" id="tabs" role="tablist">
+        <button class="tab" role="tab" data-tab="visited">Kipróbált <span class="count" id="cnt-visited">0</span></button>
+        <button class="tab" role="tab" data-tab="wishlist">♡ Kívánságlista <span class="count" id="cnt-wishlist">0</span></button>
+        <button class="tab" role="tab" data-tab="all">Mind <span class="count" id="cnt-all">0</span></button>
+      </nav>
       <section class="stats" id="stats"></section>
 
       <section class="filters">
         <input id="f-search" type="search" placeholder="Keresés név, cím, jegyzet…">
         <div class="filter-row">
-          <select id="f-cuisine"><option value="">Minden konyha</option></select>
+          <select id="f-type"><option value="">Minden típus</option></select>
           <select id="f-district"><option value="">Minden kerület</option></select>
         </div>
         <div class="filter-row">
+          <select id="f-cuisine"><option value="">Minden konyha</option></select>
+          <select id="f-sort">
+            <option value="date">Legújabb elöl</option>
+            <option value="rating">Legjobb értékelés</option>
+            <option value="name">Név (A–Z)</option>
+          </select>
+        </div>
+        <div class="filter-row visited-only">
           <select id="f-rating">
             <option value="0">Bármilyen értékelés</option>
             <option value="6">★ 6+</option>
@@ -50,17 +63,12 @@
             <option value="9">★ 9+</option>
             <option value="10">★ 10</option>
           </select>
-          <select id="f-sort">
-            <option value="date">Legutóbbi látogatás</option>
-            <option value="rating">Legjobb értékelés</option>
-            <option value="name">Név (A–Z)</option>
-          </select>
+          <label class="check"><input id="f-return" type="checkbox"> Csak ahová visszamennék</label>
         </div>
-        <label class="check"><input id="f-return" type="checkbox"> Csak ahová visszamennék</label>
       </section>
 
       <ul id="list" class="list"></ul>
-      <p id="empty" class="empty" hidden>Még nincs étterem a listán. Kattints az <b>+ Új étterem</b> gombra, vagy a térképen egy helyre.</p>
+      <p id="empty" class="empty" hidden></p>
     </aside>
 
     <section class="map-wrap">
@@ -68,15 +76,30 @@
     </section>
   </main>
 
-  <div class="pick-banner">Kattints a térképen az étterem helyére (Esc = vissza)</div>
+  <div class="pick-banner">Kattints a térképen a hely pontjára (Esc = vissza)</div>
 
   <dialog id="dlg" class="dialog">
     <form id="form" method="dialog">
-      <h2 id="dlg-title">Új étterem</h2>
+      <h2 id="dlg-title">Új hely</h2>
+
+      <div class="seg" id="status-seg" role="group" aria-label="Státusz">
+        <button type="button" data-status="visited">✓ Kipróbáltam</button>
+        <button type="button" data-status="wishlist">♡ Kívánságlista</button>
+      </div>
+      <input type="hidden" name="status">
 
       <label>Név *
         <input name="name" required autocomplete="off">
       </label>
+
+      <div class="grid2">
+        <label>Típus
+          <select name="type" id="type-select"></select>
+        </label>
+        <label>Kerület
+          <select name="district" id="district-select"></select>
+        </label>
+      </div>
 
       <label>Cím
         <div class="inline">
@@ -88,21 +111,10 @@
       <div id="geo-results" class="geo-results"></div>
 
       <div class="grid2">
-        <label>Kerület
-          <select name="district" id="district-select"></select>
-        </label>
-        <label>Konyha
+        <label>Konyha / kínálat
           <input name="cuisine" list="cuisine-list" autocomplete="off" placeholder="pl. magyar, olasz">
           <datalist id="cuisine-list"></datalist>
         </label>
-      </div>
-
-      <label><span>Értékelés <span id="rating-value" class="rating-value"></span></span>
-        <div class="stars-input" id="stars-input" role="radiogroup" aria-label="Értékelés"></div>
-        <input type="hidden" name="rating">
-      </label>
-
-      <div class="grid2">
         <label>Árszint
           <select name="price">
             <option value="">–</option>
@@ -112,16 +124,24 @@
             <option value="4">Ft Ft Ft Ft (drága)</option>
           </select>
         </label>
-        <label>Látogatás dátuma
-          <input name="date" type="date">
-        </label>
       </div>
 
-      <label class="check">
-        <input name="wouldReturn" type="checkbox"> Visszamennék
-      </label>
+      <div class="visited-only">
+        <label><span>Értékelés <span id="rating-value" class="rating-value"></span></span>
+          <div class="stars-input" id="stars-input" role="radiogroup" aria-label="Értékelés"></div>
+          <input type="hidden" name="rating">
+        </label>
+        <div class="grid2">
+          <label>Látogatás dátuma
+            <input name="date" type="date">
+          </label>
+          <label class="check top">
+            <input name="wouldReturn" type="checkbox"> Visszamennék
+          </label>
+        </div>
+      </div>
 
-      <label>Mit ettem / jegyzetek
+      <label>Jegyzetek
         <textarea name="notes" rows="3"></textarea>
       </label>
 

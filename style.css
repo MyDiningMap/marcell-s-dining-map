@@ -177,3 +177,36 @@ body.picking #map { cursor: crosshair; }
 .stars-input button { font-size: 24px; padding: 0 1px; }
 .rating-value { color: var(--text); font-weight: 600; margin-left: 4px; }
 .dialog label.check { flex-direction: row; color: var(--text); font-size: 14px; }
+
+/* Tabs */
+.tabs { display: flex; gap: 4px; padding: 12px 16px 0; }
+.tab {
+  flex: 1; font: inherit; font-size: 13px; font-weight: 600; cursor: pointer;
+  padding: 8px 6px; border-radius: 8px; border: 1px solid var(--border);
+  background: var(--surface); color: var(--muted); white-space: nowrap;
+}
+.tab[aria-selected="true"] { background: var(--text); color: var(--surface); border-color: var(--text); }
+.tab .count { font-weight: 400; opacity: .75; margin-left: 2px; }
+body[data-tab="wishlist"] .filters .visited-only { display: none; }
+.filter-row .check { font-size: 13px; }
+
+/* Status switch in the form */
+.seg { display: grid; grid-template-columns: 1fr 1fr; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+.seg button {
+  font: inherit; font-size: 14px; cursor: pointer; padding: 8px; border: 0;
+  background: var(--surface); color: var(--muted);
+}
+.seg button[aria-pressed="true"] { background: var(--accent); color: var(--accent-text); font-weight: 600; }
+.dialog .visited-only { display: flex; flex-direction: column; gap: 12px; }
+#form.is-wish .visited-only { display: none; }
+
+/* Wishlist & type */
+.type-ico { margin-right: 6px; }
+.tag.wish { color: #2563eb; border-color: #93b4f5; margin-left: 0; white-space: nowrap; }
+.visited-btn { margin-top: 8px; }
+.pin.wish span { font-size: 14px; }
+.popup-wish { color: #2563eb; font-weight: 600; font-size: 13px; }
+.popup-edit + .popup-edit { margin-left: 4px; }
+@media (prefers-color-scheme: dark) {
+  .tag.wish { color: #7aa5ff; border-color: #3557a0; }
+}

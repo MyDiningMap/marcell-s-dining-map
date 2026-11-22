@@ -2,36 +2,59 @@
   'use strict';
 
   const STORAGE_KEY = 'diningmap.restaurants.v1';
+  const TAB_KEY = 'diningmap.tab';
   const MAX_RATING = 10;
   const BUDAPEST = [47.4979, 19.0402];
   const DISTRICTS = ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X', 'XI', 'XII',
     'XIII', 'XIV', 'XV', 'XVI', 'XVII', 'XVIII', 'XIX', 'XX', 'XXI', 'XXII', 'XXIII'];
+  const TYPES = {
+    etterem: { label: 'Étterem', icon: '🍽️' },
+    pekseg: { label: 'Pékség', icon: '🥐' },
+    kavezo: { label: 'Kávézó', icon: '☕' },
+    cukraszda: { label: 'Cukrászda', icon: '🍰' },
+    bar: { label: 'Bár', icon: '🍷' },
+  };
   const DEFAULT_CUISINES = ['magyar', 'olasz', 'pizza', 'burger', 'ázsiai', 'japán', 'kínai', 'vietnámi',
-    'thai', 'indiai', 'közel-keleti', 'mexikói', 'francia', 'görög', 'vegán', 'street food', 'reggeliző', 'cukrászda', 'kávézó'];
+    'thai', 'indiai', 'közel-keleti', 'mexikói', 'francia', 'görög', 'vegán', 'street food', 'reggeliző',
+    'kovászos kenyér', 'péksütemény', 'croissant'];
 
   const $ = (sel) => document.querySelector(sel);
   const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  const today = () => new Date().toISOString().slice(0, 10);
 
   // ---------- Storage ----------
   function load() {
     try {
       const raw = localStorage.getItem(STORAGE_KEY);
       const data = raw ? JSON.parse(raw) : [];
-      return Array.isArray(data) ? data.map(toTenScale) : [];
+      return Array.isArray(data) ? data.map(normalize) : [];
     } catch { return []; }
   }
-  // Ratings used to be 1–5; entries without `scale: 10` are converted (×2).
-  function toTenScale(it) {
-    if (!it || it.scale === MAX_RATING) return it;
-    const r = Number(it.rating) || 0;
-    return { ...it, rating: r ? Math.min(MAX_RATING, r * 2) : 0, scale: MAX_RATING };
+  // Fills in defaults for older entries. Ratings used to be 1–5:
+  // entries without `scale: 10` are converted (×2).
+  function normalize(it) {
+    if (!it) return it;
+    const out = { status: 'visited', type: 'etterem', ...it };
+    if (out.scale !== MAX_RATING) {
+      const r = Number(out.rating) || 0;
+      out.rating = r ? Math.min(MAX_RATING, r * 2) : 0;
+      out.scale = MAX_RATING;
+    }
+    if (!TYPES[out.type]) out.type = 'etterem';
+    if (out.status !== 'wishlist') out.status = 'visited';
+    return out;
   }
   function save() {
     try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state.items)); }
     catch (e) { alert('Nem sikerült menteni a böngészőbe: ' + e.message); }
   }
+  function loadTab() {
+    try { const t = localStorage.getItem(TAB_KEY); return ['visited', 'wishlist', 'all'].includes(t) ? t : 'visited'; }
+    catch { return 'visited'; }
+  }
 
-  const state = { items: load(), selectedId: null, editingId: null };
+  const state = { items: load(), selectedId: null, editingId: null, tab: loadTab() };
+  const isWish = (it) => it.status === 'wishlist';
 
   // ---------- Map ----------
   const map = L.map('map', { zoomControl: true }).setView(BUDAPEST, 13);
@@ -52,9 +75,12 @@
     return '#15803d';
   }
   function pinIcon(item) {
+    const wish = isWish(item);
+    const bg = wish ? '#2563eb' : ratingColor(item.rating);
+    const label = wish ? '♡' : (item.rating || '?');
     return L.divIcon({
       className: '',
-      html: `<div class="pin" style="background:${ratingColor(item.rating)}"><span>${item.rating || '?'}</span></div>`,
+      html: `<div class="pin${wish ? ' wish' : ''}" style="background:${bg}"><span>${label}</span></div>`,
       iconSize: [28, 28], iconAnchor: [14, 28], popupAnchor: [0, -26]
     });
   }
@@ -80,33 +106,54 @@
   const priceText = (p) => (p ? Array(Number(p)).fill('Ft').join(' ') : '');
   const fmtDate = (d) => (d ? new Date(d + 'T00:00:00').toLocaleDateString('hu-HU', { year: 'numeric', month: 'short', day: 'numeric' }) : '');
   const uid = () => Date.now().toString(36) + Math.random().toString(36).slice(2, 8);
+  const typeIcon = (it) => (TYPES[it.type] || TYPES.etterem).icon;
 
   function metaLine(it) {
-    return [it.district && `${it.district}. ker.`, it.cuisine, priceText(it.price), fmtDate(it.date)]
+    return [(TYPES[it.type] || TYPES.etterem).label, it.district && `${it.district}. ker.`, it.cuisine,
+      priceText(it.price), !isWish(it) && fmtDate(it.date)]
       .filter(Boolean).map(esc).join(' · ');
   }
+
+  // ---------- Tabs ----------
+  function setTab(tab) {
+    state.tab = tab;
+    try { localStorage.setItem(TAB_KEY, tab); } catch { /* ignore */ }
+    document.querySelectorAll('.tab').forEach((b) => b.setAttribute('aria-selected', String(b.dataset.tab === tab)));
+    document.body.dataset.tab = tab;
+    render();
+    fitAll();
+  }
+  $('#tabs').addEventListener('click', (e) => {
+    const b = e.target.closest('.tab');
+    if (b) setTab(b.dataset.tab);
+  });
 
   // ---------- Filters ----------
   function filtered() {
     const q = $('#f-search').value.trim().toLowerCase();
+    const type = $('#f-type').value;
     const cuisine = $('#f-cuisine').value;
     const district = $('#f-district').value;
-    const minR = Number($('#f-rating').value);
-    const onlyReturn = $('#f-return').checked;
+    const minR = state.tab === 'wishlist' ? 0 : Number($('#f-rating').value);
+    const onlyReturn = state.tab !== 'wishlist' && $('#f-return').checked;
     const sort = $('#f-sort').value;
 
     const out = state.items.filter((it) => {
+      if (state.tab === 'visited' && isWish(it)) return false;
+      if (state.tab === 'wishlist' && !isWish(it)) return false;
       if (q && ![it.name, it.address, it.notes, it.cuisine].join(' ').toLowerCase().includes(q)) return false;
+      if (type && it.type !== type) return false;
       if (cuisine && (it.cuisine || '').toLowerCase() !== cuisine) return false;
       if (district && it.district !== district) return false;
-      if (minR && (Number(it.rating) || 0) < minR) return false;
+      if (minR && (isWish(it) || (Number(it.rating) || 0) < minR)) return false;
       if (onlyReturn && !it.wouldReturn) return false;
       return true;
     });
+    const when = (x) => (isWish(x) ? (x.createdAt || '').slice(0, 10) : x.date) || '';
     out.sort((a, b) => {
       if (sort === 'rating') return (b.rating || 0) - (a.rating || 0) || a.name.localeCompare(b.name, 'hu');
       if (sort === 'name') return a.name.localeCompare(b.name, 'hu');
-      return (b.date || '').localeCompare(a.date || '') || a.name.localeCompare(b.name, 'hu');
+      return when(b).localeCompare(when(a)) || a.name.localeCompare(b.name, 'hu');
     });
     return out;
   }
@@ -127,41 +174,54 @@
     refreshFilterOptions();
     const items = filtered();
 
-    const rated = state.items.filter((i) => i.rating);
+    const visited = state.items.filter((i) => !isWish(i));
+    const wish = state.items.length - visited.length;
+    const rated = visited.filter((i) => i.rating);
     const avg = rated.length ? (rated.reduce((s, i) => s + Number(i.rating), 0) / rated.length).toFixed(1) : '–';
-    const ret = state.items.filter((i) => i.wouldReturn).length;
+    const ret = visited.filter((i) => i.wouldReturn).length;
+    $('#cnt-visited').textContent = visited.length;
+    $('#cnt-wishlist').textContent = wish;
+    $('#cnt-all').textContent = state.items.length;
     $('#stats').innerHTML = `
-      <div class="stat"><b>${state.items.length}</b><span>étterem</span></div>
+      <div class="stat"><b>${visited.length}</b><span>kipróbált</span></div>
       <div class="stat"><b>${avg}</b><span>átlag ★ (/10)</span></div>
-      <div class="stat"><b>${ret}</b><span>visszamennék</span></div>`;
+      <div class="stat"><b>${state.tab === 'visited' ? ret : wish}</b><span>${state.tab === 'visited' ? 'visszamennék' : 'kívánságlistán'}</span></div>`;
 
     $('#list').innerHTML = items.map((it) => `
-      <li class="item${it.id === state.selectedId ? ' active' : ''}" data-id="${it.id}">
+      <li class="item${it.id === state.selectedId ? ' active' : ''}${isWish(it) ? ' is-wish' : ''}" data-id="${it.id}">
         <div class="item-head">
-          <span class="item-name">${esc(it.name)}${it.wouldReturn ? '<span class="tag">↻ visszamennék</span>' : ''}</span>
-          ${starsHtml(it.rating)}
+          <span class="item-name"><span class="type-ico" title="${esc(TYPES[it.type].label)}">${typeIcon(it)}</span>${esc(it.name)}${!isWish(it) && it.wouldReturn ? '<span class="tag">↻ visszamennék</span>' : ''}</span>
+          ${isWish(it) ? '<span class="tag wish">♡ kívánságlista</span>' : starsHtml(it.rating)}
         </div>
         <div class="item-meta">${metaLine(it) || esc(it.address)}</div>
         ${it.notes ? `<div class="item-notes">${esc(it.notes)}</div>` : ''}
+        ${isWish(it) ? `<button class="btn small visited-btn" data-visit="${it.id}">✓ Voltam itt!</button>` : ''}
       </li>`).join('');
-    $('#empty').hidden = state.items.length > 0;
-    if (state.items.length && !items.length) {
-      $('#list').innerHTML = '<li class="empty">Nincs a szűrésnek megfelelő étterem.</li>';
-    }
+
+    const empty = $('#empty');
+    if (!items.length) {
+      const none = state.tab === 'wishlist'
+        ? 'Még üres a kívánságlistád. Az <b>+ Új hely</b> gombbal vagy a térképre kattintva vehetsz fel helyet, amit ki szeretnél próbálni.'
+        : 'Még nincs hely a listán. Kattints az <b>+ Új hely</b> gombra, vagy a térképen egy pontra.';
+      const tabHas = state.items.some((i) => state.tab === 'all' || (state.tab === 'wishlist') === isWish(i));
+      empty.innerHTML = tabHas ? 'Nincs a szűrésnek megfelelő hely.' : none;
+      empty.hidden = false;
+    } else empty.hidden = true;
 
     markerLayer.clearLayers();
     markers.clear();
     items.forEach((it) => {
       if (it.lat == null || it.lng == null || it.lat === '' || it.lng === '') return;
-      const m = L.marker([Number(it.lat), Number(it.lng)], { icon: pinIcon(it), title: it.name });
+      const m = L.marker([Number(it.lat), Number(it.lng)], { icon: pinIcon(it), title: it.name, zIndexOffset: isWish(it) ? 0 : 100 });
       m.bindPopup(`
-        <div class="popup-name">${esc(it.name)}</div>
+        <div class="popup-name">${typeIcon(it)} ${esc(it.name)}</div>
         <div class="popup-meta">${metaLine(it)}</div>
-        ${starsHtml(it.rating)}
+        ${isWish(it) ? '<div class="popup-wish">♡ Kívánságlistán</div>' : starsHtml(it.rating)}
         ${it.address ? `<div>${esc(it.address)}</div>` : ''}
         ${it.notes ? `<div style="margin-top:4px">${esc(it.notes)}</div>` : ''}
         ${it.url ? `<div><a href="${esc(it.url)}" target="_blank" rel="noopener">Link ↗</a></div>` : ''}
-        <button class="popup-edit" data-edit="${it.id}">Szerkesztés</button>`);
+        <button class="popup-edit" data-edit="${it.id}">Szerkesztés</button>
+        ${isWish(it) ? `<button class="popup-edit" data-visit="${it.id}">✓ Voltam itt!</button>` : ''}`);
       m.on('click', () => select(it.id, false));
       m.addTo(markerLayer);
       markers.set(it.id, m);
@@ -181,6 +241,7 @@
   }
 
   $('#list').addEventListener('click', (e) => {
+    if (e.target.closest('[data-visit]')) return;
     const li = e.target.closest('.item');
     if (!li) return;
     const id = li.dataset.id;
@@ -188,28 +249,34 @@
     else select(id);
   });
   $('#list').addEventListener('dblclick', (e) => {
+    if (e.target.closest('[data-visit]')) return;
     const li = e.target.closest('.item');
     if (li) openForm(li.dataset.id);
   });
   document.addEventListener('click', (e) => {
-    const btn = e.target.closest('[data-edit]');
-    if (btn) openForm(btn.dataset.edit);
+    const edit = e.target.closest('[data-edit]');
+    if (edit) { openForm(edit.dataset.edit); return; }
+    const visit = e.target.closest('[data-visit]');
+    if (visit) openForm(visit.dataset.visit, {}, { markVisited: true });
   });
 
-  ['#f-search', '#f-cuisine', '#f-district', '#f-rating', '#f-sort', '#f-return']
+  ['#f-search', '#f-type', '#f-cuisine', '#f-district', '#f-rating', '#f-sort', '#f-return']
     .forEach((s) => $(s).addEventListener('input', render));
 
   // ---------- Form ----------
   const form = $('#form');
   const dlg = $('#dlg');
 
-  $('#district-select').innerHTML = '<option value="">–</option>' + DISTRICTS.map((d) => `<option value="${d}">${d}. kerület</option>`).join('');
-  $('#f-district').innerHTML = '<option value="">Minden kerület</option>' + DISTRICTS.map((d) => `<option value="${d}">${d}. kerület</option>`).join('');
+  const districtOpts = DISTRICTS.map((d) => `<option value="${d}">${d}. kerület</option>`).join('');
+  $('#district-select').innerHTML = '<option value="">–</option>' + districtOpts;
+  $('#f-district').innerHTML = '<option value="">Minden kerület</option>' + districtOpts;
+  const typeOpts = Object.entries(TYPES).map(([k, t]) => `<option value="${k}">${t.icon} ${t.label}</option>`).join('');
+  $('#type-select').innerHTML = typeOpts;
+  $('#f-type').innerHTML = '<option value="">Minden típus</option>' + typeOpts;
 
   function setRating(r) {
     form.rating.value = r || '';
-    const lbl = $('#rating-value');
-    if (lbl) lbl.textContent = r ? `${r}/${MAX_RATING}` : '';
+    $('#rating-value').textContent = r ? `${r}/${MAX_RATING}` : '';
     $('#stars-input').querySelectorAll('button').forEach((b, i) => {
       b.classList.toggle('on', i < r);
       b.setAttribute('aria-checked', String(i + 1 === Number(r)));
@@ -222,7 +289,18 @@
     if (!b) return;
     const r = Number(b.dataset.r);
     setRating(Number(form.rating.value) === r ? 0 : r);
-    $('#rating-value').textContent = form.rating.value ? `${form.rating.value}/${MAX_RATING}` : '';
+  });
+
+  function setStatus(status) {
+    form.status.value = status;
+    form.classList.toggle('is-wish', status === 'wishlist');
+    document.querySelectorAll('.seg button').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.status === status)));
+    form.notes.placeholder = status === 'wishlist' ? 'Miért szeretném kipróbálni? Ki ajánlotta?' : '';
+    if (status === 'visited' && !form.date.value) form.date.value = today();
+  }
+  $('#status-seg').addEventListener('click', (e) => {
+    const b = e.target.closest('button');
+    if (b) setStatus(b.dataset.status);
   });
 
   function setCoords(lat, lng) {
@@ -241,22 +319,30 @@
     }
   }
 
-  function openForm(id, preset = {}) {
+  function openForm(id, preset = {}, opts = {}) {
     state.editingId = id;
     const it = id ? state.items.find((x) => x.id === id) : null;
     form.reset();
     $('#geo-results').innerHTML = '';
-    $('#dlg-title').textContent = it ? 'Étterem szerkesztése' : 'Új étterem';
     $('#btn-delete').hidden = !it;
-    const v = it || { date: new Date().toISOString().slice(0, 10), ...preset };
+    const v = it || {
+      status: state.tab === 'wishlist' ? 'wishlist' : 'visited',
+      type: $('#f-type').value || 'etterem',
+      ...preset,
+    };
     ['name', 'address', 'district', 'cuisine', 'price', 'date', 'notes', 'url']
       .forEach((k) => { form[k].value = v[k] ?? ''; });
+    form.type.value = v.type || 'etterem';
     form.wouldReturn.checked = !!v.wouldReturn;
     setRating(Number(v.rating) || 0);
+    let status = v.status || 'visited';
+    if (opts.markVisited) { status = 'visited'; form.date.value = today(); }
+    setStatus(status);
     setCoords(v.lat, v.lng);
+    $('#dlg-title').textContent = opts.markVisited ? `Milyen volt? – ${it.name}` : (it ? 'Hely szerkesztése' : 'Új hely');
     map.closePopup();
     dlg.showModal();
-    form.name.focus();
+    (opts.markVisited ? $('#stars-input button') : form.name).focus();
   }
 
   function closeForm() {
@@ -277,16 +363,19 @@
 
   form.addEventListener('submit', (e) => {
     e.preventDefault();
+    const wish = form.status.value === 'wishlist';
     const data = {
       name: form.name.value.trim(),
+      status: wish ? 'wishlist' : 'visited',
+      type: form.type.value,
       address: form.address.value.trim(),
       district: form.district.value,
       cuisine: form.cuisine.value.trim().toLowerCase(),
       price: form.price.value,
-      rating: Number(form.rating.value) || 0,
+      rating: wish ? 0 : Number(form.rating.value) || 0,
       scale: MAX_RATING,
-      date: form.date.value,
-      wouldReturn: form.wouldReturn.checked,
+      date: wish ? '' : form.date.value,
+      wouldReturn: !wish && form.wouldReturn.checked,
       notes: form.notes.value.trim(),
       url: form.url.value.trim(),
       lat: form.lat.value === '' ? null : Number(form.lat.value),
@@ -302,7 +391,9 @@
     }
     save();
     closeForm();
-    render();
+    // Make sure the saved place is visible in the current tab
+    if (state.tab !== 'all' && (state.tab === 'wishlist') !== wish) setTab(wish ? 'wishlist' : 'visited');
+    else render();
     select(id);
   });
 
@@ -324,7 +415,7 @@
   }
 
   $('#btn-geocode').addEventListener('click', async () => {
-    const q = [form.address.value.trim() || form.name.value.trim()].filter(Boolean)[0];
+    const q = form.address.value.trim() || form.name.value.trim();
     if (!q) { $('#geo-hint').textContent = 'Írj be egy címet vagy nevet a kereséshez.'; return; }
     const box = $('#geo-results');
     box.innerHTML = '<span class="hint">Keresés…</span>';
@@ -334,7 +425,7 @@
       });
       const res = await fetch(url, { headers: { Accept: 'application/json' } });
       const list = await res.json();
-      if (!list.length) { box.innerHTML = '<span class="hint">Nincs találat. Kattints a térképre a hely megadásához.</span>'; return; }
+      if (!list.length) { box.innerHTML = '<span class="hint">Nincs találat. Jelöld ki a helyet a térképen.</span>'; return; }
       box.innerHTML = list.map((r, i) => `<button type="button" data-i="${i}">${esc(r.display_name)}</button>`).join('');
       box.onclick = (e) => {
         const b = e.target.closest('button');
@@ -351,7 +442,7 @@
         box.innerHTML = '';
       };
     } catch (err) {
-      box.innerHTML = `<span class="hint">Hiba a keresésnél (${esc(err.message)}). Kattints a térképre a hely megadásához.</span>`;
+      box.innerHTML = `<span class="hint">Hiba a keresésnél (${esc(err.message)}). Jelöld ki a helyet a térképen.</span>`;
     }
   });
 
@@ -367,7 +458,7 @@
     const blob = new Blob([JSON.stringify(state.items, null, 2)], { type: 'application/json' });
     const a = document.createElement('a');
     a.href = URL.createObjectURL(blob);
-    a.download = `diningmap-${new Date().toISOString().slice(0, 10)}.json`;
+    a.download = `diningmap-${today()}.json`;
     a.click();
     setTimeout(() => URL.revokeObjectURL(a.href), 1000);
     $('.menu').open = false;
@@ -380,10 +471,10 @@
     if (!file) return;
     try {
       const data = JSON.parse(await file.text());
-      if (!Array.isArray(data)) throw new Error('A fájl nem étteremlistát tartalmaz.');
-      const valid = data.filter((x) => x && typeof x.name === 'string').map((x) => toTenScale({ ...x, id: x.id || uid() }));
+      if (!Array.isArray(data)) throw new Error('A fájl nem helylistát tartalmaz.');
+      const valid = data.filter((x) => x && typeof x.name === 'string').map((x) => normalize({ ...x, id: x.id || uid() }));
       const replace = state.items.length === 0 ||
-        confirm(`${valid.length} étterem a fájlban.\n\nOK = a jelenlegi lista CSERÉJE\nMégse = HOZZÁFŰZÉS (azonos azonosítójúak frissülnek)`);
+        confirm(`${valid.length} hely a fájlban.\n\nOK = a jelenlegi lista CSERÉJE\nMégse = HOZZÁFŰZÉS (azonos azonosítójúak frissülnek)`);
       if (replace) state.items = valid;
       else {
         const byId = new Map(state.items.map((x) => [x.id, x]));
@@ -401,7 +492,7 @@
   $('#btn-clear').addEventListener('click', () => {
     $('.menu').open = false;
     if (!state.items.length) return;
-    if (!confirm('Biztosan törölsz MINDEN éttermet? Előtte érdemes fájlba menteni.')) return;
+    if (!confirm('Biztosan törölsz MINDEN helyet (a kívánságlistát is)? Előtte érdemes fájlba menteni.')) return;
     state.items = [];
     save();
     render();
@@ -413,11 +504,10 @@
   });
 
   function fitAll() {
-    const pts = state.items.filter((i) => i.lat != null && i.lng != null).map((i) => [i.lat, i.lng]);
+    const pts = [...markers.values()].map((m) => m.getLatLng());
     if (pts.length > 1) map.fitBounds(pts, { padding: [40, 40], maxZoom: 16 });
     else if (pts.length === 1) map.setView(pts[0], 16);
   }
 
-  render();
-  fitAll();
+  setTab(state.tab);
 })();

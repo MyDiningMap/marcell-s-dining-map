@@ -1,15 +1,18 @@
 # diningmap
 
-Személyes webapp a kipróbált budapesti éttermek nyilvántartására, térképpel.
+Személyes webapp a kipróbált és a kinézett budapesti éttermek, pékségek, kávézók nyilvántartására, térképpel.
 
 ## Funkciók
 
-- **Térkép** (OpenStreetMap + Leaflet): minden étterem egy pin, az értékelés szerint színezve.
-- **Új étterem**: a „+ Új étterem” gombbal vagy a térképre kattintva.
+- **Térkép** (OpenStreetMap + Leaflet): minden hely egy pin, az értékelés szerint színezve; a kívánságlistás helyek kék ♡ pint kapnak.
+- **Kipróbált / Kívánságlista / Mind** fülek. A kívánságlistára azokat a helyeket veheted fel, amiket kinéztél, de még nem voltál ott.
+  A „✓ Voltam itt!” gombbal egy kattintással áttehetők a kipróbáltak közé (ilyenkor megadhatod az értékelést).
+- **Típus**: étterem, pékség, kávézó, cukrászda, bár – szűrhető.
+- **Új hely**: a „+ Új hely” gombbal vagy a térképre kattintva.
   - A helyet cím alapján is keresheted (OpenStreetMap Nominatim), vagy kijelölheted a térképen.
   - Az irányítószámból automatikusan kitölti a kerületet.
-- Adatok: név, cím, kerület, konyha, 1–10 csillag, árszint, látogatás dátuma, „visszamennék”, jegyzetek, link.
-- **Szűrés és rendezés**: szöveges keresés, konyha, kerület, minimum értékelés, „csak ahová visszamennék”.
+- Adatok: név, típus, cím, kerület, konyha, 1–10 csillag, árszint, látogatás dátuma, „visszamennék”, jegyzetek, link.
+- **Szűrés és rendezés**: szöveges keresés, típus, konyha, kerület, minimum értékelés, „csak ahová visszamennék”.
 - **Statisztika**: darabszám, átlagos értékelés, hány helyre mennél vissza.
 - **Mentés / betöltés JSON fájlba** (⋯ menü): biztonsági mentéshez, vagy hogy átvidd az adatokat másik eszközre.
 - Mobilon is használható, és van sötét mód.
