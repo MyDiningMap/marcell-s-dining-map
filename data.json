@@ -384,5 +384,23 @@
     "url": "https://maps.app.goo.gl/AhSYFQ42shmPrzWbA",
     "lat": 47.5102531,
     "lng": 19.0255691
+  },
+  {
+    "id": "mws8zbs81u6t7m",
+    "createdAt": "2026-11-22T19:46:22.952Z",
+    "name": "Panjab Tandori Étterem",
+    "status": "visited",
+    "type": "etterem",
+    "address": "pannonia utca 3",
+    "district": "XIII",
+    "cuisine": "",
+    "price": "",
+    "rating": 9,
+    "scale": 10,
+    "wouldReturn": true,
+    "notes": "A hely kicsit \"autentikusan\" néz ki, de a kaja az top és nem drága.",
+    "url": "https://maps.app.goo.gl/jQtUNM32JYJY2x6H9",
+    "lat": 47.5130612,
+    "lng": 19.0514921
   }
 ]
