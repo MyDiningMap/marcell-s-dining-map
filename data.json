@@ -48,7 +48,7 @@
     "district": "IX",
     "cuisine": "koreai",
     "price": "",
-    "rating": 1,
+    "rating": 8,
     "scale": 10,
     "date": "2026-11-22",
     "wouldReturn": true,
@@ -56,6 +56,6 @@
     "url": "https://maps.app.goo.gl/NNdadYBTiXb3eLnC6",
     "lat": 47.478606,
     "lng": 19.0739844,
-    "updatedAt": "2026-11-22T18:22:49.439Z"
+    "updatedAt": "2026-11-22T18:22:57.427Z"
   }
 ]
