@@ -220,5 +220,23 @@
     "url": "https://maps.app.goo.gl/u6bm8ey9mfawsBteA",
     "lat": 47.4959765,
     "lng": 19.0691975
+  },
+  {
+    "id": "mws74xw3s89g3s",
+    "createdAt": "2026-11-22T18:54:45.651Z",
+    "name": "Szaletly",
+    "status": "visited",
+    "type": "etterem",
+    "address": "stefánia út 13",
+    "district": "XIV",
+    "cuisine": "magyar",
+    "price": "",
+    "rating": 9,
+    "scale": 10,
+    "wouldReturn": false,
+    "notes": "Kicsit fancy magyaros étterem. Fine dining irányú, de még határeset. A kert nagyon hangulatos",
+    "url": "https://maps.app.goo.gl/xX2LDdu5hrqGpqxP7",
+    "lat": 47.5033283,
+    "lng": 19.1049785
   }
 ]
