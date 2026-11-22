@@ -178,10 +178,11 @@
     "price": "",
     "rating": 8,
     "scale": 10,
-    "wouldReturn": false,
+    "wouldReturn": true,
     "notes": "Korrekt pizza, ha ezen a környéken jársz.",
     "url": "https://maps.app.goo.gl/AcCTqMGnD94tuGh38",
     "lat": 47.5075167,
-    "lng": 19.0330328
+    "lng": 19.0330328,
+    "updatedAt": "2026-11-22T18:51:10.771Z"
   }
 ]
