@@ -130,11 +130,11 @@
     "updatedAt": "2026-11-22T18:37:32.229Z"
   },
   {
+    "status": "visited",
+    "type": "etterem",
     "id": "mws6szd709o5it",
     "createdAt": "2026-11-22T18:45:27.691Z",
     "name": "MANU+",
-    "status": "visited",
-    "type": "etterem",
     "address": "Vámház körút 8",
     "district": "V",
     "cuisine": "pizza",
@@ -148,11 +148,11 @@
     "lng": 19.0587964
   },
   {
+    "status": "visited",
+    "type": "etterem",
     "id": "mws6y842abqf0w",
     "createdAt": "2026-11-22T18:49:32.306Z",
     "name": "101 NEO",
-    "status": "visited",
-    "type": "etterem",
     "address": "kazinczy utca 9",
     "district": "VII",
     "cuisine": "kínai",
@@ -167,11 +167,11 @@
     "updatedAt": "2026-11-22T18:49:58.354Z"
   },
   {
+    "status": "visited",
+    "type": "etterem",
     "id": "mws707tztr91rr",
     "createdAt": "2026-11-22T18:51:05.255Z",
     "name": "Fermento",
-    "status": "visited",
-    "type": "etterem",
     "address": "csalogány utca 26",
     "district": "I",
     "cuisine": "pizza",
@@ -186,11 +186,11 @@
     "updatedAt": "2026-11-22T18:51:10.771Z"
   },
   {
+    "status": "visited",
+    "type": "etterem",
     "id": "mws71jxvyn511o",
     "createdAt": "2026-11-22T18:52:07.603Z",
     "name": "Monalizza",
-    "status": "visited",
-    "type": "etterem",
     "address": "lónyay utca 15",
     "district": "IX",
     "cuisine": "pizza",
@@ -202,5 +202,23 @@
     "url": "https://maps.app.goo.gl/vx4ohahYH4tncpHC9",
     "lat": 47.4861678,
     "lng": 19.0611278
+  },
+  {
+    "id": "mws73ldelvwjlp",
+    "createdAt": "2026-11-22T18:53:42.770Z",
+    "name": "Time Out Market",
+    "status": "visited",
+    "type": "etterem",
+    "address": "Blaha lujza tér 1",
+    "district": "VIII",
+    "cuisine": "",
+    "price": "",
+    "rating": 9,
+    "scale": 10,
+    "wouldReturn": false,
+    "notes": "Több étterem van jelen, ázsiai-magyar-olasz, aki amit szeretne. A hely nagyon hangulatos.",
+    "url": "https://maps.app.goo.gl/u6bm8ey9mfawsBteA",
+    "lat": 47.4959765,
+    "lng": 19.0691975
   }
 ]
