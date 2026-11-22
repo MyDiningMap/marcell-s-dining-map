@@ -531,5 +531,23 @@
     "url": "https://maps.app.goo.gl/8ABXMxmgkzjaovYE9",
     "lat": 47.5033135,
     "lng": 19.0635402
+  },
+  {
+    "id": "mws9gx6v1s2jfj",
+    "createdAt": "2026-11-22T20:00:03.847Z",
+    "name": "Amatore",
+    "status": "wishlist",
+    "type": "etterem",
+    "address": "rózsa utca 71",
+    "district": "VI",
+    "cuisine": "",
+    "price": "",
+    "rating": 0,
+    "scale": 10,
+    "wouldReturn": false,
+    "notes": "",
+    "url": "https://maps.app.goo.gl/enB8X3uLTA7wwA8v8",
+    "lat": 47.5089764,
+    "lng": 19.0672028
   }
 ]
