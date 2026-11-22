@@ -567,5 +567,23 @@
     "url": "https://maps.app.goo.gl/aRLUYFJNHmWGkk8n7",
     "lat": 47.5033135,
     "lng": 19.0635402
+  },
+  {
+    "id": "mws9jjze4lc36n",
+    "createdAt": "2026-11-22T20:02:06.698Z",
+    "name": "Laget",
+    "status": "wishlist",
+    "type": "pekseg",
+    "address": "bajcsy 49",
+    "district": "VI",
+    "cuisine": "",
+    "price": "",
+    "rating": 0,
+    "scale": 10,
+    "wouldReturn": false,
+    "notes": "",
+    "url": "https://maps.app.goo.gl/roZ7B7H7JYm7CbYP8",
+    "lat": 47.5075973,
+    "lng": 19.0552673
   }
 ]
