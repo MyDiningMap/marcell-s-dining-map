@@ -238,5 +238,23 @@
     "url": "https://maps.app.goo.gl/xX2LDdu5hrqGpqxP7",
     "lat": 47.5033283,
     "lng": 19.1049785
+  },
+  {
+    "id": "mws78knj97ms3s",
+    "createdAt": "2026-11-22T18:57:35.119Z",
+    "name": "Budapest BarBQ",
+    "status": "visited",
+    "type": "etterem",
+    "address": "hercegprímás utca 11",
+    "district": "V",
+    "cuisine": "burger",
+    "price": "",
+    "rating": 8,
+    "scale": 10,
+    "wouldReturn": true,
+    "notes": "Jó kis barbeque hely, a sültek és a MacandCheese is finom",
+    "url": "https://maps.app.goo.gl/MuxufY4E726QXyaLA",
+    "lat": 47.5017403,
+    "lng": 19.0530528
   }
 ]
