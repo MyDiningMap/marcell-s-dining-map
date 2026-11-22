@@ -256,5 +256,23 @@
     "url": "https://maps.app.goo.gl/MuxufY4E726QXyaLA",
     "lat": 47.5017403,
     "lng": 19.0530528
+  },
+  {
+    "id": "mws7dssddnd3pq",
+    "createdAt": "2026-11-22T19:01:38.941Z",
+    "name": "Cheeky's Deli",
+    "status": "visited",
+    "type": "etterem",
+    "address": "margit körút 13",
+    "district": "II",
+    "cuisine": "",
+    "price": "",
+    "rating": 8,
+    "scale": 10,
+    "wouldReturn": true,
+    "notes": "Reuben, pastrami és Philly cheesesteak szendók. Fincsa, kicsit drága",
+    "url": "https://maps.app.goo.gl/2w7a2ppGtDwn14Qx7",
+    "lat": 47.5137427,
+    "lng": 19.0350705
   }
 ]
