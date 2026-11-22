@@ -146,5 +146,23 @@
     "url": "https://maps.app.goo.gl/Bq1xYeQhpo2uuoa57",
     "lat": 47.4881273,
     "lng": 19.0587964
+  },
+  {
+    "id": "mws6y842abqf0w",
+    "createdAt": "2026-11-22T18:49:32.306Z",
+    "name": "101 NEO",
+    "status": "visited",
+    "type": "etterem",
+    "address": "kazinczy utca 9",
+    "district": "VII",
+    "cuisine": "kínai",
+    "price": "",
+    "rating": 0,
+    "scale": 10,
+    "wouldReturn": false,
+    "notes": "A császár itt a legjobb. De a tonkatsu szendvics is megér egy próbát. Viszonylag pici",
+    "url": "https://maps.app.goo.gl/tFaLv59Lkqf587CH8",
+    "lat": 47.497,
+    "lng": 19.0636435
   }
 ]
