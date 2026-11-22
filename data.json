@@ -108,5 +108,23 @@
     "url": "https://maps.app.goo.gl/aX4PLC8T5ysk4q6M6",
     "lat": 47.4786302,
     "lng": 19.0738788
+  },
+  {
+    "id": "mws6f6cq5uviic",
+    "createdAt": "2026-11-22T18:34:43.562Z",
+    "name": "Iguana Mexico",
+    "status": "visited",
+    "type": "etterem",
+    "address": "Zoltán utca 16",
+    "district": "V",
+    "cuisine": "mexikói",
+    "price": "",
+    "rating": 9,
+    "scale": 10,
+    "wouldReturn": false,
+    "notes": "Ha fajitas akkor csak az Iguana.",
+    "url": "",
+    "lat": null,
+    "lng": null
   }
 ]
