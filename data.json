@@ -46,15 +46,16 @@
     "type": "etterem",
     "address": "MEster utca 46",
     "district": "IX",
-    "cuisine": "",
+    "cuisine": "koreai",
     "price": "",
-    "rating": 0,
+    "rating": 1,
     "scale": 10,
     "date": "2026-11-22",
-    "wouldReturn": false,
-    "notes": "",
-    "url": "",
-    "lat": null,
-    "lng": null
+    "wouldReturn": true,
+    "notes": "Hangulatos pici koreai hely. A bibimbap és a bulgogi is finom.",
+    "url": "https://maps.app.goo.gl/NNdadYBTiXb3eLnC6",
+    "lat": 47.478606,
+    "lng": 19.0739844,
+    "updatedAt": "2026-11-22T18:22:49.439Z"
   }
 ]
