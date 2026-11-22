@@ -366,5 +366,23 @@
     "url": "https://maps.app.goo.gl/g7Qy85gFAZKEMBQS7",
     "lat": 47.4912412,
     "lng": 19.0558616
+  },
+  {
+    "id": "mws8x05y1yl057",
+    "createdAt": "2026-11-22T19:44:34.582Z",
+    "name": "Indigo",
+    "status": "visited",
+    "type": "etterem",
+    "address": "fény utca 16",
+    "district": "II",
+    "cuisine": "indiai",
+    "price": "",
+    "rating": 8,
+    "scale": 10,
+    "wouldReturn": true,
+    "notes": "Finom indiai, ár-értékben is ok, a hely is \"normál\" étterem stílus.",
+    "url": "https://maps.app.goo.gl/AhSYFQ42shmPrzWbA",
+    "lat": 47.5102531,
+    "lng": 19.0255691
   }
 ]
