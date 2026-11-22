@@ -713,5 +713,23 @@
     "lat": 47.4902426,
     "lng": 19.0757364,
     "updatedAt": "2026-11-22T20:09:05.604Z"
+  },
+  {
+    "id": "mws9u0p2281jaj",
+    "createdAt": "2026-11-22T20:10:14.918Z",
+    "name": "MITZI",
+    "status": "wishlist",
+    "type": "bar",
+    "address": "bartók béla 1",
+    "district": "XI",
+    "cuisine": "",
+    "price": "",
+    "rating": 0,
+    "scale": 10,
+    "wouldReturn": false,
+    "notes": "Kévázó, bisztró, bár",
+    "url": "https://maps.app.goo.gl/L3E2DEreThzSTiEk7",
+    "lat": 47.4831518,
+    "lng": 19.0526391
   }
 ]
