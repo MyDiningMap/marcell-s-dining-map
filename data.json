@@ -294,5 +294,23 @@
     "url": "https://maps.app.goo.gl/uJCPX3XvjgtskNz96",
     "lat": 47.4857452,
     "lng": 19.0641934
+  },
+  {
+    "id": "mws7w5nsht1vv3",
+    "createdAt": "2026-11-22T19:15:55.432Z",
+    "name": "Leila's Lebanese",
+    "status": "visited",
+    "type": "etterem",
+    "address": "váci utca 42",
+    "district": "V",
+    "cuisine": "közel-keleti",
+    "price": "",
+    "rating": 7,
+    "scale": 10,
+    "wouldReturn": false,
+    "notes": "Libanoni étterem. Az ételek finomak de nem nagy extra, ár-értékben drága.",
+    "url": "https://maps.app.goo.gl/54dZZ3o1r4FUKste6",
+    "lat": 47.4911017,
+    "lng": 19.0545574
   }
 ]
