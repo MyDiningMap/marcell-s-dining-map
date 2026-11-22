@@ -513,5 +513,23 @@
     "url": "https://maps.app.goo.gl/6rHtR4ENXLJJcQeBA",
     "lat": null,
     "lng": null
+  },
+  {
+    "id": "mws9g0chjb1wl8",
+    "createdAt": "2026-11-22T19:59:21.281Z",
+    "name": "Red Lantern HotPot",
+    "status": "wishlist",
+    "type": "etterem",
+    "address": "liszt ferenc tér 5",
+    "district": "VI",
+    "cuisine": "",
+    "price": "",
+    "rating": 0,
+    "scale": 10,
+    "wouldReturn": false,
+    "notes": "",
+    "url": "https://maps.app.goo.gl/8ABXMxmgkzjaovYE9",
+    "lat": 47.5033135,
+    "lng": 19.0635402
   }
 ]
