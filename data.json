@@ -749,5 +749,23 @@
     "url": "https://maps.app.goo.gl/tgyjkzTCUdEuPTh36",
     "lat": 47.5068547,
     "lng": 19.0354168
+  },
+  {
+    "id": "mws9wocn8vl08v",
+    "createdAt": "2026-11-22T20:12:18.888Z",
+    "name": "Bistro 38",
+    "status": "wishlist",
+    "type": "etterem",
+    "address": "ráday 14",
+    "district": "IX",
+    "cuisine": "vietnámi",
+    "price": "",
+    "rating": 0,
+    "scale": 10,
+    "wouldReturn": false,
+    "notes": "",
+    "url": "https://maps.app.goo.gl/eGoZZfetzy9krsLD7",
+    "lat": 47.4877953,
+    "lng": 19.0635309
   }
 ]
