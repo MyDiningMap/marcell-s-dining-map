@@ -223,12 +223,9 @@ body.readonly .item { cursor: default; }
 .sync[data-status="saving"] { color: var(--muted); }
 .sync[data-status="ok"] { color: #15803d; }
 .sync[data-status="error"] { color: var(--danger); cursor: pointer; text-decoration: underline; }
-.login-text { margin: 0; font-size: 14px; line-height: 1.45; }
-.login-help { font-size: 13px; }
-.login-help summary { cursor: pointer; color: var(--accent); }
-.login-help ol { padding-left: 20px; margin: 8px 0 0; line-height: 1.6; }
-.login-help a { color: var(--accent); }
-.login-error { margin: 0; min-height: 1em; font-size: 13px; color: var(--danger); }
+.login-error:empty { display: none; }
+#login-dlg { width: min(380px, calc(100vw - 32px)); }
+.login-error { margin: 0; font-size: 13px; color: var(--danger); }
 @media (prefers-color-scheme: dark) { .sync[data-status="ok"] { color: #4ade80; } }
 @media (max-width: 760px) { .sync { display: none; } }
 @media (max-width: 420px) {

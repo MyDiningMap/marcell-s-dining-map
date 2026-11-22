@@ -171,27 +171,7 @@
   <dialog id="login-dlg" class="dialog">
     <form id="login-form">
       <h2>Belépés szerkesztéshez</h2>
-      <p class="login-text">
-        Szerkeszteni csak a lista tulajdonosa tud. Add meg a GitHub-tokenedet, ami írni tudja a
-        <b>marcell-dining-map</b> repót. A token csak ebben a böngészőben marad, sehova máshova nem kerül.
-      </p>
-      <details class="login-help">
-        <summary>Hogyan kapok tokent?</summary>
-        <ol>
-          <li>Nyisd meg: <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener">github.com → Fine-grained token</a></li>
-          <li><b>Token name:</b> pl. „marcell-dining-map”, <b>Expiration:</b> amennyi tetszik (pl. 1 év).</li>
-          <li><b>Repository access:</b> „Only select repositories” → válaszd ki a <b>marcell-dining-map</b> repót.</li>
-          <li><b>Permissions:</b> kattints az <b>„+ Add permissions”</b> gombra, válaszd a <b>Contents</b> sort,
-            majd mellette a „Read-only” legördülőt állítsd <b>„Read and write”</b>-ra.</li>
-          <li><b>Generate token</b>, majd másold be ide.</li>
-        </ol>
-        <p>Egyszerűbb alternatíva: <a href="https://github.com/settings/tokens/new?scopes=public_repo&description=marcell-dining-map" target="_blank" rel="noopener">classic token</a>,
-          amin csak a <b>public_repo</b> legyen bepipálva.</p>
-        </ol>
-      </details>
-      <label>GitHub token
-        <input id="login-token" type="password" autocomplete="off" placeholder="github_pat_…" required>
-      </label>
+      <input id="login-token" type="password" autocomplete="off" placeholder="Token" aria-label="Token" required>
       <p class="login-error" id="login-error" role="alert"></p>
       <div class="dialog-actions">
         <span class="spacer"></span>
