@@ -702,7 +702,7 @@
     "status": "wishlist",
     "type": "pekseg",
     "address": "horváth mihály tér 13",
-    "district": "",
+    "district": "VIII",
     "cuisine": "",
     "price": "",
     "rating": 0,
@@ -710,7 +710,8 @@
     "wouldReturn": false,
     "notes": "",
     "url": "https://maps.app.goo.gl/z8J9KH2FLCdPVfMB6",
-    "lat": null,
-    "lng": null
+    "lat": 47.4902426,
+    "lng": 19.0757364,
+    "updatedAt": "2026-11-22T20:09:05.604Z"
   }
 ]
