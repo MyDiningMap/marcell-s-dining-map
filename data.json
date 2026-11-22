@@ -348,5 +348,23 @@
     "url": "https://maps.app.goo.gl/ozEiooqDD922Uo8TA",
     "lat": 47.5145775,
     "lng": 19.0514856
+  },
+  {
+    "id": "mws8vcoe9a7sjr",
+    "createdAt": "2026-11-22T19:43:17.486Z",
+    "name": "Indian palate",
+    "status": "visited",
+    "type": "etterem",
+    "address": "veres pálné utca 5",
+    "district": "V",
+    "cuisine": "indiai",
+    "price": "",
+    "rating": 6,
+    "scale": 10,
+    "wouldReturn": false,
+    "notes": "Puccos indiai étterem, de a kaja nem jobb mint máshol.",
+    "url": "https://maps.app.goo.gl/g7Qy85gFAZKEMBQS7",
+    "lat": 47.4912412,
+    "lng": 19.0558616
   }
 ]
