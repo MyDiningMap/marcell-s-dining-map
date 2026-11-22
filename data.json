@@ -549,5 +549,23 @@
     "url": "https://maps.app.goo.gl/enB8X3uLTA7wwA8v8",
     "lat": 47.5089764,
     "lng": 19.0672028
+  },
+  {
+    "id": "mws9ig9a22e1sz",
+    "createdAt": "2026-11-22T20:01:15.214Z",
+    "name": "Art of Sushi",
+    "status": "wishlist",
+    "type": "etterem",
+    "address": "liszt ferenc tér 5",
+    "district": "VI",
+    "cuisine": "japán",
+    "price": "",
+    "rating": 0,
+    "scale": 10,
+    "wouldReturn": false,
+    "notes": "",
+    "url": "https://maps.app.goo.gl/aRLUYFJNHmWGkk8n7",
+    "lat": 47.5033135,
+    "lng": 19.0635402
   }
 ]
