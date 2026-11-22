@@ -495,5 +495,23 @@
     "url": "https://maps.app.goo.gl/JRV1Vq85GUsSircH6",
     "lat": 47.4979225,
     "lng": 19.0606484
+  },
+  {
+    "id": "mws9ednj4tkiba",
+    "createdAt": "2026-11-22T19:58:05.215Z",
+    "name": "Rutin",
+    "status": "wishlist",
+    "type": "etterem",
+    "address": "Budaörs",
+    "district": "",
+    "cuisine": "",
+    "price": "",
+    "rating": 0,
+    "scale": 10,
+    "wouldReturn": false,
+    "notes": "",
+    "url": "https://maps.app.goo.gl/6rHtR4ENXLJJcQeBA",
+    "lat": null,
+    "lng": null
   }
 ]
