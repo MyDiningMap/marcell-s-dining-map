@@ -785,5 +785,23 @@
     "url": "https://maps.app.goo.gl/cKef4SEKyF7Shx7T7",
     "lat": 47.5157937,
     "lng": 19.049639
+  },
+  {
+    "id": "mwsa0bjsifr767",
+    "createdAt": "2026-11-22T20:15:08.920Z",
+    "name": "Zen Eatery",
+    "status": "wishlist",
+    "type": "etterem",
+    "address": "liszt ferenc tér 10",
+    "district": "VI",
+    "cuisine": "japán",
+    "price": "",
+    "rating": 0,
+    "scale": 10,
+    "wouldReturn": false,
+    "notes": "",
+    "url": "https://maps.app.goo.gl/mEBishbFdYsCWPLr6",
+    "lat": 47.5041397,
+    "lng": 19.0633192
   }
 ]
