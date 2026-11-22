@@ -312,5 +312,23 @@
     "url": "https://maps.app.goo.gl/54dZZ3o1r4FUKste6",
     "lat": 47.4911017,
     "lng": 19.0545574
+  },
+  {
+    "id": "mws7z5ur6j2bxg",
+    "createdAt": "2026-11-22T19:18:15.651Z",
+    "name": "Furia",
+    "status": "visited",
+    "type": "etterem",
+    "address": "irányi utca 6",
+    "district": "V",
+    "cuisine": "közel-keleti",
+    "price": "",
+    "rating": 7,
+    "scale": 10,
+    "wouldReturn": false,
+    "notes": "Van 1-2 különlegesebb fogás, grúz specialitás, de nem olyan extra.",
+    "url": "https://maps.app.goo.gl/7a5PG8ojXNqYkv978",
+    "lat": 47.4910855,
+    "lng": 19.0528525
   }
 ]
