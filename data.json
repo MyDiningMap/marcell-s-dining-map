@@ -415,10 +415,11 @@
     "price": "",
     "rating": 9,
     "scale": 10,
-    "wouldReturn": false,
+    "wouldReturn": true,
     "notes": "A pizza finom, ár-értékben sem vészes, kicsit drágább, de ez a neve meg a lokáció miatt van, de amúgy megérős.",
     "url": "https://maps.app.goo.gl/y2JdxFCmF495hp2X6",
     "lat": 47.5121729,
-    "lng": 19.0494754
+    "lng": 19.0494754,
+    "updatedAt": "2026-11-22T19:48:38.466Z"
   }
 ]
