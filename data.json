@@ -585,5 +585,23 @@
     "url": "https://maps.app.goo.gl/roZ7B7H7JYm7CbYP8",
     "lat": 47.5075973,
     "lng": 19.0552673
+  },
+  {
+    "id": "mws9kz8rh2v5vl",
+    "createdAt": "2026-11-22T20:03:13.131Z",
+    "name": "Komachi Bistro",
+    "status": "wishlist",
+    "type": "etterem",
+    "address": "kertész utca 33",
+    "district": "VII",
+    "cuisine": "japán",
+    "price": "",
+    "rating": 0,
+    "scale": 10,
+    "wouldReturn": false,
+    "notes": "",
+    "url": "https://maps.app.goo.gl/XRWwwWzWewQs4L9a7",
+    "lat": 47.5014263,
+    "lng": 19.0659886
   }
 ]
