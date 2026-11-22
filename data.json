@@ -1,10 +1,10 @@
 [
   {
+    "status": "visited",
+    "type": "etterem",
     "id": "mws5fhmgt37o8j",
     "createdAt": "2026-11-22T18:06:58.552Z",
     "name": "Mori Ramen",
-    "status": "visited",
-    "type": "etterem",
     "address": "Akácfa utca 55 1073",
     "district": "VII",
     "cuisine": "japán",
@@ -20,11 +20,11 @@
     "updatedAt": "2026-11-22T18:13:57.429Z"
   },
   {
+    "status": "visited",
+    "type": "etterem",
     "id": "mws5r7co2pjb6r",
     "createdAt": "2026-11-22T18:16:05.112Z",
     "name": "WAFU Ramen",
-    "status": "visited",
-    "type": "etterem",
     "address": "Budafoki út 41",
     "district": "XI",
     "cuisine": "japán",
@@ -37,5 +37,24 @@
     "url": "https://maps.app.goo.gl/e1QyoYoTtVNsqHZj8",
     "lat": 47.4782831,
     "lng": 19.0535477
+  },
+  {
+    "id": "mws5y27f6a7vmg",
+    "createdAt": "2026-11-22T18:21:25.035Z",
+    "name": "Koryo Bistro",
+    "status": "visited",
+    "type": "etterem",
+    "address": "MEster utca 46",
+    "district": "IX",
+    "cuisine": "",
+    "price": "",
+    "rating": 0,
+    "scale": 10,
+    "date": "2026-11-22",
+    "wouldReturn": false,
+    "notes": "",
+    "url": "",
+    "lat": null,
+    "lng": null
   }
 ]
