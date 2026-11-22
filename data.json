@@ -157,12 +157,13 @@
     "district": "VII",
     "cuisine": "kínai",
     "price": "",
-    "rating": 0,
+    "rating": 8,
     "scale": 10,
-    "wouldReturn": false,
+    "wouldReturn": true,
     "notes": "A császár itt a legjobb. De a tonkatsu szendvics is megér egy próbát. Viszonylag pici",
     "url": "https://maps.app.goo.gl/tFaLv59Lkqf587CH8",
     "lat": 47.497,
-    "lng": 19.0636435
+    "lng": 19.0636435,
+    "updatedAt": "2026-11-22T18:49:58.354Z"
   }
 ]
