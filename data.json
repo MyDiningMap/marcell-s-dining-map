@@ -165,5 +165,23 @@
     "lat": 47.497,
     "lng": 19.0636435,
     "updatedAt": "2026-11-22T18:49:58.354Z"
+  },
+  {
+    "id": "mws707tztr91rr",
+    "createdAt": "2026-11-22T18:51:05.255Z",
+    "name": "Fermento",
+    "status": "visited",
+    "type": "etterem",
+    "address": "csalogány utca 26",
+    "district": "I",
+    "cuisine": "pizza",
+    "price": "",
+    "rating": 8,
+    "scale": 10,
+    "wouldReturn": false,
+    "notes": "Korrekt pizza, ha ezen a környéken jársz.",
+    "url": "https://maps.app.goo.gl/AcCTqMGnD94tuGh38",
+    "lat": 47.5075167,
+    "lng": 19.0330328
   }
 ]
