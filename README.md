@@ -25,7 +25,8 @@ Személyes webapp a kipróbált és a kinézett budapesti éttermek, pékségek,
   Minden mentés automatikusan commitolódik a `data.json`-ba, és kb. 1 perc múlva a látogatók is látják.
 - Token készítése: https://github.com/settings/personal-access-tokens/new
   - Repository access: *Only select repositories* → `diningmap`
-  - Permissions → Repository permissions → **Contents: Read and write**
+  - Permissions → „+ Add permissions” → **Contents**, majd a mellette lévő „Read-only” legördülőben **Read and write**
+  - Alternatíva: classic token (https://github.com/settings/tokens/new) csak a `public_repo` jogosultsággal
 - A token csak a saját böngésződ `localStorage`-ában marad. Kilépés: ⋯ → „Kilépés a szerkesztő módból”.
 - Ha másik ágról publikálod a GitHub Pages-t, az `app.js` elején lévő `GH.branch` értéket is át kell írni.
 - A repó nyilvános, ezért a `data.json` tartalma (a kívánságlista is) bárki számára látható.
