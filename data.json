@@ -657,5 +657,23 @@
     "url": "https://maps.app.goo.gl/df6qAwA3KAyAFE5D9",
     "lat": 47.5022648,
     "lng": 19.0530604
+  },
+  {
+    "id": "mws9ox4d3hznjx",
+    "createdAt": "2026-11-22T20:06:17.005Z",
+    "name": "Ms. Asia Bowls and Rolls",
+    "status": "wishlist",
+    "type": "etterem",
+    "address": "déri miksa 3",
+    "district": "VIII",
+    "cuisine": "japán",
+    "price": "",
+    "rating": 0,
+    "scale": 10,
+    "wouldReturn": false,
+    "notes": "",
+    "url": "https://maps.app.goo.gl/FLppQmBv1QfQD6zk6",
+    "lat": 47.492549,
+    "lng": 19.073706
   }
 ]
