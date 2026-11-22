@@ -322,10 +322,7 @@
     const q = $('#f-search').value.trim().toLowerCase();
     const type = $('#f-type').value;
     const cuisine = $('#f-cuisine').value;
-    const district = $('#f-district').value;
-    const minR = state.tab === 'wishlist' ? 0 : Number($('#f-rating').value);
     const onlyReturn = state.tab !== 'wishlist' && $('#f-return').checked;
-    const sort = $('#f-sort').value;
 
     const out = state.items.filter((it) => {
       if (state.tab === 'visited' && isWish(it)) return false;
@@ -333,17 +330,11 @@
       if (q && ![it.name, it.address, it.notes, it.cuisine].join(' ').toLowerCase().includes(q)) return false;
       if (type && it.type !== type) return false;
       if (cuisine && (it.cuisine || '').toLowerCase() !== cuisine) return false;
-      if (district && it.district !== district) return false;
-      if (minR && (isWish(it) || (Number(it.rating) || 0) < minR)) return false;
       if (onlyReturn && !it.wouldReturn) return false;
       return true;
     });
     const when = (x) => x.createdAt || '';
-    out.sort((a, b) => {
-      if (sort === 'rating') return (b.rating || 0) - (a.rating || 0) || a.name.localeCompare(b.name, 'hu');
-      if (sort === 'name') return a.name.localeCompare(b.name, 'hu');
-      return when(b).localeCompare(when(a)) || a.name.localeCompare(b.name, 'hu');
-    });
+    out.sort((a, b) => when(b).localeCompare(when(a)) || a.name.localeCompare(b.name, 'hu'));
     return out;
   }
 
@@ -442,7 +433,7 @@
     if (visit) openForm(visit.dataset.visit, {}, { markVisited: true });
   });
 
-  ['#f-search', '#f-type', '#f-cuisine', '#f-district', '#f-rating', '#f-sort', '#f-return']
+  ['#f-search', '#f-type', '#f-cuisine', '#f-return']
     .forEach((s) => $(s).addEventListener('input', render));
 
   // ---------- Form ----------
@@ -451,7 +442,6 @@
 
   const districtOpts = DISTRICTS.map((d) => `<option value="${d}">${d}. kerület</option>`).join('');
   $('#district-select').innerHTML = '<option value="">–</option>' + districtOpts;
-  $('#f-district').innerHTML = '<option value="">Minden kerület</option>' + districtOpts;
   const typeOpts = Object.entries(TYPES).map(([k, t]) => `<option value="${k}">${t.icon} ${t.label}</option>`).join('');
   $('#type-select').innerHTML = typeOpts;
   $('#f-type').innerHTML = '<option value="">Minden típus</option>' + typeOpts;
