@@ -4,7 +4,7 @@
   // Where the shared data lives. Everyone reads data.json from the site;
   // only someone with a GitHub token that can push to this repo can save.
   const GH = {
-    owner: 'Marcell-testing',
+    owner: 'MyDiningMap',
     repo: 'marcell-dining-map',
     branch: 'claude/keen-euler-7pfh59', // the branch GitHub Pages is published from
     path: 'data.json',
