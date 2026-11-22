@@ -247,7 +247,7 @@
     "name": "Budapest BarBQ",
     "address": "hercegprímás utca 11",
     "district": "V",
-    "cuisine": "burger",
+    "cuisine": "barbeque",
     "price": "",
     "rating": 8,
     "scale": 10,
@@ -255,7 +255,8 @@
     "notes": "Jó kis barbeque hely, a sültek és a MacandCheese is finom",
     "url": "https://maps.app.goo.gl/MuxufY4E726QXyaLA",
     "lat": 47.5017403,
-    "lng": 19.0530528
+    "lng": 19.0530528,
+    "updatedAt": "2026-11-22T19:03:20.237Z"
   },
   {
     "status": "visited",
