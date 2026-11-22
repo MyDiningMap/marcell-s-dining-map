@@ -9,7 +9,7 @@
     "district": "VII",
     "cuisine": "japán",
     "price": "",
-    "rating": 1,
+    "rating": 10,
     "scale": 10,
     "date": "2026-11-22",
     "wouldReturn": true,
@@ -17,6 +17,6 @@
     "url": "",
     "lat": 47.501240487544365,
     "lng": 19.064444303512577,
-    "updatedAt": "2026-11-22T18:08:59.365Z"
+    "updatedAt": "2026-11-22T18:09:04.178Z"
   }
 ]
