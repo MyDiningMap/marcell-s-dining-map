@@ -23,7 +23,7 @@
     cukraszda: { label: 'Cukrászda', icon: '🍰' },
     bar: { label: 'Bár', icon: '🍷' },
   };
-  const DEFAULT_CUISINES = ['magyar', 'olasz', 'pizza', 'burger', 'japán', 'kínai', 'vietnámi',
+  const DEFAULT_CUISINES = ['magyar', 'olasz', 'pizza', 'burger', 'barbeque', 'japán', 'kínai', 'vietnámi',
     'thai', 'koreai', 'indiai', 'közel-keleti', 'mexikói', 'francia', 'görög', 'vegán', 'street food', 'reggeliző',
     'kovászos kenyér', 'péksütemény', 'croissant'];
 
