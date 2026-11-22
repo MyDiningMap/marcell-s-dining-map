@@ -365,16 +365,9 @@
 
     const visited = state.items.filter((i) => !isWish(i));
     const wish = state.items.length - visited.length;
-    const rated = visited.filter((i) => i.rating);
-    const avg = rated.length ? (rated.reduce((s, i) => s + Number(i.rating), 0) / rated.length).toFixed(1) : '–';
-    const ret = visited.filter((i) => i.wouldReturn).length;
     $('#cnt-visited').textContent = visited.length;
     $('#cnt-wishlist').textContent = wish;
     $('#cnt-all').textContent = state.items.length;
-    $('#stats').innerHTML = `
-      <div class="stat"><b>${visited.length}</b><span>kipróbált</span></div>
-      <div class="stat"><b>${avg}</b><span>átlag ★ (/10)</span></div>
-      <div class="stat"><b>${state.tab === 'visited' ? ret : wish}</b><span>${state.tab === 'visited' ? 'visszamennék' : 'kívánságlistán'}</span></div>`;
 
     $('#list').innerHTML = items.map((it) => `
       <li class="item${it.id === state.selectedId ? ' active' : ''}${isWish(it) ? ' is-wish' : ''}" data-id="${it.id}">
